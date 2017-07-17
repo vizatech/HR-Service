@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EntityDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="EntityDataModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PersonSet" EntityType="EntityDataModel.Person" />
+    <EntitySet Name="CompetenceSet" EntityType="EntityDataModel.Competence" />
+    <EntitySet Name="CommentSet" EntityType="EntityDataModel.Comment" />
+    <EntitySet Name="IndicatorSet" EntityType="EntityDataModel.Indicator" />
+    <AssociationSet Name="PersonCompetence" Association="EntityDataModel.PersonCompetence">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Competence" EntitySet="CompetenceSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonComment" Association="EntityDataModel.PersonComment">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Comment" EntitySet="CommentSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompetenceIndicator" Association="EntityDataModel.CompetenceIndicator">
+      <End Role="Competence" EntitySet="CompetenceSet" />
+      <End Role="Indicator" EntitySet="IndicatorSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="IfActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Competence" Relationship="EntityDataModel.PersonCompetence" FromRole="Person" ToRole="Competence" />
+    <NavigationProperty Name="Comment" Relationship="EntityDataModel.PersonComment" FromRole="Person" ToRole="Comment" />
+  </EntityType>
+  <EntityType Name="Competence">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="IfActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="EntityDataModel.PersonCompetence" FromRole="Competence" ToRole="Person" />
+    <Property Name="PersonId" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Indicator" Relationship="EntityDataModel.CompetenceIndicator" FromRole="Competence" ToRole="Indicator" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="EntityDataModel.PersonComment" FromRole="Comment" ToRole="Person" />
+    <Property Name="PersonId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Indicator">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="IfActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Competence" Relationship="EntityDataModel.CompetenceIndicator" FromRole="Indicator" ToRole="Competence" />
+    <Property Name="CompetenceId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonCompetence">
+    <End Type="EntityDataModel.Person" Role="Person" Multiplicity="0..1" />
+    <End Type="EntityDataModel.Competence" Role="Competence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Competence">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonComment">
+    <End Type="EntityDataModel.Person" Role="Person" Multiplicity="1" />
+    <End Type="EntityDataModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompetenceIndicator">
+    <End Type="EntityDataModel.Competence" Role="Competence" Multiplicity="1" />
+    <End Type="EntityDataModel.Indicator" Role="Indicator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competence">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Indicator">
+        <PropertyRef Name="CompetenceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

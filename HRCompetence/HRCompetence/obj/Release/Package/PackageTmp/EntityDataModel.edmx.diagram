@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="05d5c1259c3a42d3823c5510ecd7909a" Name="Diagram1" >
+        <EntityTypeShape EntityType="EntityDataModel.Person" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EntityDataModel.Competence" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EntityDataModel.Comment" Width="1.5" PointX="3.375" PointY="3.125" />
+        <EntityTypeShape EntityType="EntityDataModel.Indicator" Width="1.5" PointX="6" PointY="0.75" />
+        <AssociationConnector Association="EntityDataModel.PersonCompetence" />
+        <AssociationConnector Association="EntityDataModel.PersonComment" />
+        <AssociationConnector Association="EntityDataModel.CompetenceIndicator" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
