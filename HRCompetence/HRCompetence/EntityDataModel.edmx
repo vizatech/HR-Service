@@ -4,96 +4,170 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EntityDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="EntityDataModelStoreContainer">
-    <EntitySet Name="PersonSet" EntityType="EntityDataModel.Store.PersonSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CompetenceSet" EntityType="EntityDataModel.Store.CompetenceSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CommentSet" EntityType="EntityDataModel.Store.CommentSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IndicatorSet" EntityType="EntityDataModel.Store.IndicatorSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="PersonCompetence" Association="EntityDataModel.Store.PersonCompetence">
-      <End Role="Person" EntitySet="PersonSet" />
-      <End Role="Competence" EntitySet="CompetenceSet" />
-    </AssociationSet>
-    <AssociationSet Name="PersonComment" Association="EntityDataModel.Store.PersonComment">
-      <End Role="Person" EntitySet="PersonSet" />
-      <End Role="Comment" EntitySet="CommentSet" />
-    </AssociationSet>
-    <AssociationSet Name="CompetenceIndicator" Association="EntityDataModel.Store.CompetenceIndicator">
-      <End Role="Competence" EntitySet="CompetenceSet" />
-      <End Role="Indicator" EntitySet="IndicatorSet" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="PersonSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IfActive" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CompetenceSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IfActive" Type="bit" Nullable="false" />
-    <Property Name="PersonId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="CommentSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PersonId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="IndicatorSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IfActive" Type="bit" Nullable="false" />
-    <Property Name="CompetenceId" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="PersonCompetence">
-    <End Role="Person" Type="EntityDataModel.Store.PersonSet" Multiplicity="0..1" />
-    <End Role="Competence" Type="EntityDataModel.Store.CompetenceSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Competence">
-        <PropertyRef Name="PersonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PersonComment">
-    <End Role="Person" Type="EntityDataModel.Store.PersonSet" Multiplicity="1" />
-    <End Role="Comment" Type="EntityDataModel.Store.CommentSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="PersonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CompetenceIndicator">
-    <End Role="Competence" Type="EntityDataModel.Store.CompetenceSet" Multiplicity="1" />
-    <End Role="Indicator" Type="EntityDataModel.Store.IndicatorSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Competence">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Indicator">
-        <PropertyRef Name="CompetenceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="EntityDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CommentSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetenceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IfActive" Type="bit" Nullable="false" />
+          <Property Name="PersonId" Type="int" />
+        </EntityType>
+        <EntityType Name="IndicatorSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IfActive" Type="bit" Nullable="false" />
+          <Property Name="CompetenceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IfActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CompetenceIndicator">
+          <End Role="CompetenceSet" Type="Self.CompetenceSet" Multiplicity="1" />
+          <End Role="IndicatorSet" Type="Self.IndicatorSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetenceSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndicatorSet">
+              <PropertyRef Name="CompetenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonComment">
+          <End Role="PersonSet" Type="Self.PersonSet" Multiplicity="1" />
+          <End Role="CommentSet" Type="Self.CommentSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommentSet">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonCompetence">
+          <End Role="PersonSet" Type="Self.PersonSet" Multiplicity="0..1" />
+          <End Role="CompetenceSet" Type="Self.CompetenceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompetenceSet">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteCompetenceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteIndicatorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeletePersonById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllCompetences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllIndicators" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllPersons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCommentByIdPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCompetenceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCompetenceByIdPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIndicatorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIndicatorByIdCompetence" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPersonById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PersonId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostCompetence" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IfActive" Type="bit" Mode="In" />
+          <Parameter Name="PersonId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostIndicator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IfActive" Type="bit" Mode="In" />
+          <Parameter Name="CompetenceId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IfActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PutCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="PutCompetenceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IfActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PutIndicatorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IfActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PutPersonById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IfActive" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="EntityDataModelStoreContainer">
+          <EntitySet Name="CommentSet" EntityType="Self.CommentSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetenceSet" EntityType="Self.CompetenceSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndicatorSet" EntityType="Self.IndicatorSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonSet" EntityType="Self.PersonSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CompetenceIndicator" Association="Self.FK_CompetenceIndicator">
+            <End Role="CompetenceSet" EntitySet="CompetenceSet" />
+            <End Role="IndicatorSet" EntitySet="IndicatorSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonComment" Association="Self.FK_PersonComment">
+            <End Role="PersonSet" EntitySet="PersonSet" />
+            <End Role="CommentSet" EntitySet="CommentSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonCompetence" Association="Self.FK_PersonCompetence">
+            <End Role="PersonSet" EntitySet="PersonSet" />
+            <End Role="CompetenceSet" EntitySet="CompetenceSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EntityDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -114,13 +188,87 @@
             <End Role="Competence" EntitySet="CompetenceSet" />
             <End Role="Indicator" EntitySet="IndicatorSet" />
           </AssociationSet>
+          <FunctionImport Name="DeleteCommentById">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteCompetenceById">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteIndicatorById">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeletePersonById">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllComments" ReturnType="Collection(EntityDataModel.GetAllComments_Result)" />
+          <FunctionImport Name="GetAllCompetences" ReturnType="Collection(EntityDataModel.GetAllCompetences_Result)" />
+          <FunctionImport Name="GetAllIndicators" ReturnType="Collection(EntityDataModel.GetAllIndicators_Result)" />
+          <FunctionImport Name="GetAllPersons" ReturnType="Collection(EntityDataModel.GetAllPersons_Result)" />
+          <FunctionImport Name="GetCommentById" ReturnType="Collection(EntityDataModel.GetCommentById_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCommentByIdPerson" ReturnType="Collection(EntityDataModel.GetCommentByIdPerson_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCompetenceById" ReturnType="Collection(EntityDataModel.GetCompetenceById_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCompetenceByIdPerson" ReturnType="Collection(EntityDataModel.GetCompetenceByIdPerson_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetIndicatorById" ReturnType="Collection(EntityDataModel.GetIndicatorById_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetIndicatorByIdCompetence" ReturnType="Collection(EntityDataModel.GetIndicatorByIdCompetence_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPersonById" ReturnType="Collection(EntityDataModel.GetPersonById_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostComment">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="PersonId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostCompetence">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="IfActive" Mode="In" Type="Boolean" />
+            <Parameter Name="PersonId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostIndicator">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="IfActive" Mode="In" Type="Boolean" />
+            <Parameter Name="CompetenceId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostPerson">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="IfActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PutCommentById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PutCompetenceById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="IfActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PutIndicatorById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="IfActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PutPersonById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="IfActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="IfActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Competence" Relationship="EntityDataModel.PersonCompetence" FromRole="Person" ToRole="Competence" />
           <NavigationProperty Name="Comment" Relationship="EntityDataModel.PersonComment" FromRole="Person" ToRole="Comment" />
@@ -130,7 +278,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="IfActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="EntityDataModel.PersonCompetence" FromRole="Competence" ToRole="Person" />
           <Property Name="PersonId" Type="Int32" Nullable="true" />
@@ -141,7 +289,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Person" Relationship="EntityDataModel.PersonComment" FromRole="Comment" ToRole="Person" />
           <Property Name="PersonId" Type="Int32" Nullable="false" />
         </EntityType>
@@ -150,7 +298,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="IfActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Competence" Relationship="EntityDataModel.CompetenceIndicator" FromRole="Indicator" ToRole="Competence" />
           <Property Name="CompetenceId" Type="Int32" Nullable="false" />
@@ -191,6 +339,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetAllComments_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAllCompetences_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+          <Property Type="Int32" Name="PersonId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllIndicators_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+          <Property Type="Int32" Name="CompetenceId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAllPersons_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetCommentById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetCommentByIdPerson_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetCompetenceById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+          <Property Type="Int32" Name="PersonId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetCompetenceByIdPerson_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+          <Property Type="Int32" Name="PersonId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetIndicatorById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+          <Property Type="Int32" Name="CompetenceId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIndicatorByIdCompetence_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+          <Property Type="Int32" Name="CompetenceId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetPersonById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="Boolean" Name="IfActive" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -205,6 +414,22 @@
           <ScalarProperty Name="IfActive" ColumnName="IfActive" />
         </MappingFragment>
       </EntityTypeMapping>
+            <EntityTypeMapping TypeName="EntityDataModel.Person">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="EntityDataModel.Store.PostPerson">
+                  <ScalarProperty Name="IfActive" ParameterName="IfActive" />
+                  <ScalarProperty Name="Title" ParameterName="Title" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="EntityDataModel.Store.PutPersonById">
+                  <ScalarProperty Name="IfActive" ParameterName="IfActive" Version="Current" />
+                  <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+                  <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="EntityDataModel.Store.DeletePersonById">
+                  <ScalarProperty Name="Id" ParameterName="Id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CompetenceSet">
       <EntityTypeMapping TypeName="IsTypeOf(EntityDataModel.Competence)">
@@ -215,6 +440,23 @@
           <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
+            <EntityTypeMapping TypeName="EntityDataModel.Competence">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="EntityDataModel.Store.PostCompetence">
+                  <ScalarProperty Name="PersonId" ParameterName="PersonId" />
+                  <ScalarProperty Name="IfActive" ParameterName="IfActive" />
+                  <ScalarProperty Name="Title" ParameterName="Title" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="EntityDataModel.Store.PutCompetenceById">
+                  <ScalarProperty Name="IfActive" ParameterName="IfActive" Version="Current" />
+                  <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+                  <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="EntityDataModel.Store.DeleteCompetenceById">
+                  <ScalarProperty Name="Id" ParameterName="Id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CommentSet">
       <EntityTypeMapping TypeName="IsTypeOf(EntityDataModel.Comment)">
@@ -224,6 +466,21 @@
           <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
+            <EntityTypeMapping TypeName="EntityDataModel.Comment">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="EntityDataModel.Store.PostComment">
+                  <ScalarProperty Name="PersonId" ParameterName="PersonId" />
+                  <ScalarProperty Name="Title" ParameterName="Title" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="EntityDataModel.Store.PutCommentById">
+                  <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+                  <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="EntityDataModel.Store.DeleteCommentById">
+                  <ScalarProperty Name="Id" ParameterName="Id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="IndicatorSet">
       <EntityTypeMapping TypeName="IsTypeOf(EntityDataModel.Indicator)">
@@ -234,7 +491,141 @@
           <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
         </MappingFragment>
       </EntityTypeMapping>
+            <EntityTypeMapping TypeName="EntityDataModel.Indicator">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="EntityDataModel.Store.PostIndicator">
+                  <ScalarProperty Name="CompetenceId" ParameterName="CompetenceId" />
+                  <ScalarProperty Name="IfActive" ParameterName="IfActive" />
+                  <ScalarProperty Name="Title" ParameterName="Title" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="EntityDataModel.Store.PutIndicatorById">
+                  <ScalarProperty Name="IfActive" ParameterName="IfActive" Version="Current" />
+                  <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+                  <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="EntityDataModel.Store.DeleteIndicatorById">
+                  <ScalarProperty Name="Id" ParameterName="Id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
     </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteCommentById" FunctionName="EntityDataModel.Store.DeleteCommentById" />
+          <FunctionImportMapping FunctionImportName="DeleteCompetenceById" FunctionName="EntityDataModel.Store.DeleteCompetenceById" />
+          <FunctionImportMapping FunctionImportName="DeleteIndicatorById" FunctionName="EntityDataModel.Store.DeleteIndicatorById" />
+          <FunctionImportMapping FunctionImportName="DeletePersonById" FunctionName="EntityDataModel.Store.DeletePersonById" />
+          <FunctionImportMapping FunctionImportName="GetAllComments" FunctionName="EntityDataModel.Store.GetAllComments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetAllComments_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCompetences" FunctionName="EntityDataModel.Store.GetAllCompetences">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetAllCompetences_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllIndicators" FunctionName="EntityDataModel.Store.GetAllIndicators">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetAllIndicators_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+                <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllPersons" FunctionName="EntityDataModel.Store.GetAllPersons">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetAllPersons_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCommentById" FunctionName="EntityDataModel.Store.GetCommentById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetCommentById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCommentByIdPerson" FunctionName="EntityDataModel.Store.GetCommentByIdPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetCommentByIdPerson_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCompetenceById" FunctionName="EntityDataModel.Store.GetCompetenceById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetCompetenceById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCompetenceByIdPerson" FunctionName="EntityDataModel.Store.GetCompetenceByIdPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetCompetenceByIdPerson_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIndicatorById" FunctionName="EntityDataModel.Store.GetIndicatorById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetIndicatorById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+                <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIndicatorByIdCompetence" FunctionName="EntityDataModel.Store.GetIndicatorByIdCompetence">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetIndicatorByIdCompetence_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+                <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPersonById" FunctionName="EntityDataModel.Store.GetPersonById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntityDataModel.GetPersonById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PostComment" FunctionName="EntityDataModel.Store.PostComment" />
+          <FunctionImportMapping FunctionImportName="PostCompetence" FunctionName="EntityDataModel.Store.PostCompetence" />
+          <FunctionImportMapping FunctionImportName="PostIndicator" FunctionName="EntityDataModel.Store.PostIndicator" />
+          <FunctionImportMapping FunctionImportName="PostPerson" FunctionName="EntityDataModel.Store.PostPerson" />
+          <FunctionImportMapping FunctionImportName="PutCommentById" FunctionName="EntityDataModel.Store.PutCommentById" />
+          <FunctionImportMapping FunctionImportName="PutCompetenceById" FunctionName="EntityDataModel.Store.PutCompetenceById" />
+          <FunctionImportMapping FunctionImportName="PutIndicatorById" FunctionName="EntityDataModel.Store.PutIndicatorById" />
+          <FunctionImportMapping FunctionImportName="PutPersonById" FunctionName="EntityDataModel.Store.PutPersonById" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

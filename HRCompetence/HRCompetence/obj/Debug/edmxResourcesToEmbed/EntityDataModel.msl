@@ -9,6 +9,22 @@
           <ScalarProperty Name="IfActive" ColumnName="IfActive" />
         </MappingFragment>
       </EntityTypeMapping>
+      <EntityTypeMapping TypeName="EntityDataModel.Person">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="EntityDataModel.Store.PostPerson">
+            <ScalarProperty Name="IfActive" ParameterName="IfActive" />
+            <ScalarProperty Name="Title" ParameterName="Title" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="EntityDataModel.Store.PutPersonById">
+            <ScalarProperty Name="IfActive" ParameterName="IfActive" Version="Current" />
+            <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+            <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="EntityDataModel.Store.DeletePersonById">
+            <ScalarProperty Name="Id" ParameterName="Id" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CompetenceSet">
       <EntityTypeMapping TypeName="IsTypeOf(EntityDataModel.Competence)">
@@ -19,6 +35,23 @@
           <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
+      <EntityTypeMapping TypeName="EntityDataModel.Competence">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="EntityDataModel.Store.PostCompetence">
+            <ScalarProperty Name="PersonId" ParameterName="PersonId" />
+            <ScalarProperty Name="IfActive" ParameterName="IfActive" />
+            <ScalarProperty Name="Title" ParameterName="Title" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="EntityDataModel.Store.PutCompetenceById">
+            <ScalarProperty Name="IfActive" ParameterName="IfActive" Version="Current" />
+            <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+            <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="EntityDataModel.Store.DeleteCompetenceById">
+            <ScalarProperty Name="Id" ParameterName="Id" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CommentSet">
       <EntityTypeMapping TypeName="IsTypeOf(EntityDataModel.Comment)">
@@ -27,6 +60,21 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="EntityDataModel.Comment">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="EntityDataModel.Store.PostComment">
+            <ScalarProperty Name="PersonId" ParameterName="PersonId" />
+            <ScalarProperty Name="Title" ParameterName="Title" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="EntityDataModel.Store.PutCommentById">
+            <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+            <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="EntityDataModel.Store.DeleteCommentById">
+            <ScalarProperty Name="Id" ParameterName="Id" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="IndicatorSet">
@@ -38,6 +86,140 @@
           <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
         </MappingFragment>
       </EntityTypeMapping>
+      <EntityTypeMapping TypeName="EntityDataModel.Indicator">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="EntityDataModel.Store.PostIndicator">
+            <ScalarProperty Name="CompetenceId" ParameterName="CompetenceId" />
+            <ScalarProperty Name="IfActive" ParameterName="IfActive" />
+            <ScalarProperty Name="Title" ParameterName="Title" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="EntityDataModel.Store.PutIndicatorById">
+            <ScalarProperty Name="IfActive" ParameterName="IfActive" Version="Current" />
+            <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+            <ScalarProperty Name="Id" ParameterName="Id" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="EntityDataModel.Store.DeleteIndicatorById">
+            <ScalarProperty Name="Id" ParameterName="Id" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DeleteCommentById" FunctionName="EntityDataModel.Store.DeleteCommentById" />
+    <FunctionImportMapping FunctionImportName="DeleteCompetenceById" FunctionName="EntityDataModel.Store.DeleteCompetenceById" />
+    <FunctionImportMapping FunctionImportName="DeleteIndicatorById" FunctionName="EntityDataModel.Store.DeleteIndicatorById" />
+    <FunctionImportMapping FunctionImportName="DeletePersonById" FunctionName="EntityDataModel.Store.DeletePersonById" />
+    <FunctionImportMapping FunctionImportName="GetAllComments" FunctionName="EntityDataModel.Store.GetAllComments">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetAllComments_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllCompetences" FunctionName="EntityDataModel.Store.GetAllCompetences">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetAllCompetences_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllIndicators" FunctionName="EntityDataModel.Store.GetAllIndicators">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetAllIndicators_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+          <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllPersons" FunctionName="EntityDataModel.Store.GetAllPersons">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetAllPersons_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCommentById" FunctionName="EntityDataModel.Store.GetCommentById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetCommentById_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCommentByIdPerson" FunctionName="EntityDataModel.Store.GetCommentByIdPerson">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetCommentByIdPerson_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCompetenceById" FunctionName="EntityDataModel.Store.GetCompetenceById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetCompetenceById_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetCompetenceByIdPerson" FunctionName="EntityDataModel.Store.GetCompetenceByIdPerson">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetCompetenceByIdPerson_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetIndicatorById" FunctionName="EntityDataModel.Store.GetIndicatorById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetIndicatorById_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+          <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetIndicatorByIdCompetence" FunctionName="EntityDataModel.Store.GetIndicatorByIdCompetence">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetIndicatorByIdCompetence_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+          <ScalarProperty Name="CompetenceId" ColumnName="CompetenceId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetPersonById" FunctionName="EntityDataModel.Store.GetPersonById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntityDataModel.GetPersonById_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IfActive" ColumnName="IfActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PostComment" FunctionName="EntityDataModel.Store.PostComment" />
+    <FunctionImportMapping FunctionImportName="PostCompetence" FunctionName="EntityDataModel.Store.PostCompetence" />
+    <FunctionImportMapping FunctionImportName="PostIndicator" FunctionName="EntityDataModel.Store.PostIndicator" />
+    <FunctionImportMapping FunctionImportName="PostPerson" FunctionName="EntityDataModel.Store.PostPerson" />
+    <FunctionImportMapping FunctionImportName="PutCommentById" FunctionName="EntityDataModel.Store.PutCommentById" />
+    <FunctionImportMapping FunctionImportName="PutCompetenceById" FunctionName="EntityDataModel.Store.PutCompetenceById" />
+    <FunctionImportMapping FunctionImportName="PutIndicatorById" FunctionName="EntityDataModel.Store.PutIndicatorById" />
+    <FunctionImportMapping FunctionImportName="PutPersonById" FunctionName="EntityDataModel.Store.PutPersonById" />
   </EntityContainerMapping>
 </Mapping>

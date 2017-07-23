@@ -10,7 +10,7 @@
                 <blockquote class="primary">
                     <p class="lead">Приложение написано в архитектуре <mark>ASP.NET Web Forms / Entity Data Model</mark></p>
                 </blockquote>                
-                <p><a href="#" class="btn btn-primary btn-lg">Перейти на Git-Hub &raquo;</a></p>
+                <p><a href="https://github.com/vizatech/HR-Service" class="btn btn-primary btn-lg">Перейти на Git-Hub &raquo;</a></p>
             </div>
         </div>
         <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -70,7 +70,7 @@
             </div>
 
             <!-- Источник данных - Competence -->
-            <asp:SqlDataSource ID="SqlDataSourceCompetence" runat="server" ConnectionString="<%$ ConnectionStrings:HRCompetenceConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [CompetenceSet] WHERE ([PersonId] = @PersonId) ORDER BY [Id]" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [CompetenceSet] WHERE [Id] = @original_Id AND [Title] = @original_Title AND [IfActive] = @original_IfActive AND (([PersonId] = @original_PersonId) OR ([PersonId] IS NULL AND @original_PersonId IS NULL))" InsertCommand="INSERT INTO [CompetenceSet] ([Title], [IfActive], [PersonId]) VALUES (@Title, @IfActive, @PersonId)" UpdateCommand="UPDATE [CompetenceSet] SET [Title] = @Title, [IfActive] = @IfActive, [PersonId] = @PersonId WHERE [Id] = @original_Id AND [Title] = @original_Title AND [IfActive] = @original_IfActive AND (([PersonId] = @original_PersonId) OR ([PersonId] IS NULL AND @original_PersonId IS NULL))">
+            <asp:SqlDataSource ID="SqlDataSourceCompetence" runat="server" ConnectionString="<%$ ConnectionStrings:HRCompetenceConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [CompetenceSet] WHERE ([PersonId] = @PersonId) ORDER BY [Id], [IfActive] DESC" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [CompetenceSet] WHERE [Id] = @original_Id AND [Title] = @original_Title AND [IfActive] = @original_IfActive AND (([PersonId] = @original_PersonId) OR ([PersonId] IS NULL AND @original_PersonId IS NULL))" InsertCommand="INSERT INTO [CompetenceSet] ([Title], [IfActive], [PersonId]) VALUES (@Title, @IfActive, @PersonId)" UpdateCommand="UPDATE [CompetenceSet] SET [Title] = @Title, [IfActive] = @IfActive, [PersonId] = @PersonId WHERE [Id] = @original_Id AND [Title] = @original_Title AND [IfActive] = @original_IfActive AND (([PersonId] = @original_PersonId) OR ([PersonId] IS NULL AND @original_PersonId IS NULL))">
                 <DeleteParameters>
                     <asp:Parameter Name="original_Id" Type="Int32" />
                     <asp:Parameter Name="original_Title" Type="String" />
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                            <asp:ListBox CssClass="media-object panel-body" width="100%" Style="max-width: 500px; border-width: 0px" ID="ListBoxComment" runat="server" DataSourceID="SqlDataSourceComment" DataTextField="Title" DataValueField="Id" Font-Size="Medium" Rows="5" AutoPostBack="True" Height="155px" ViewStateMode="Disabled"></asp:ListBox>
+                            <asp:ListBox CssClass="media-object panel-body" width="100%" Style="max-width: 500px; border-width: 0px" ID="ListBoxComment" runat="server" DataSourceID="SqlDataSourceComment" DataTextField="Title" DataValueField="Id" Font-Size="Medium" Rows="5" Height="155px" ViewStateMode="Disabled"></asp:ListBox>
                             <div class="panel-footer">
                        
                             </div>
@@ -237,7 +237,7 @@
                             </div>
                         </div>
                     </div>
-                    <asp:ListBox CssClass="media-object panel-body" Style="border-width: 0px" width="100%" ID="ListBoxIndicator" runat="server" DataSourceID="SqlDataSourceIndicator" DataTextField="Title" DataValueField="Id" Font-Size="Medium" Rows="7" AutoPostBack="True" Height="200px"></asp:ListBox>
+                    <asp:ListBox CssClass="media-object panel-body" Style="border-width: 0px" width="100%" ID="ListBoxIndicator" runat="server" DataSourceID="SqlDataSourceIndicator" DataTextField="Title" DataValueField="Id" Font-Size="Medium" Rows="7" Height="200px"></asp:ListBox>
                     <div class="panel-footer">
                        
                     </div>

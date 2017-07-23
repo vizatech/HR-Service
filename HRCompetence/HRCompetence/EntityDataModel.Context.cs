@@ -12,6 +12,8 @@ namespace HRCompetence
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class EntityDataModelContainer : DbContext
     {
@@ -29,5 +31,248 @@ namespace HRCompetence
         public virtual DbSet<Competence> CompetenceSet { get; set; }
         public virtual DbSet<Comment> CommentSet { get; set; }
         public virtual DbSet<Indicator> IndicatorSet { get; set; }
+    
+        public virtual int DeleteCommentById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteCommentById", idParameter);
+        }
+    
+        public virtual int DeleteCompetenceById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteCompetenceById", idParameter);
+        }
+    
+        public virtual int DeleteIndicatorById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteIndicatorById", idParameter);
+        }
+    
+        public virtual int DeletePersonById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeletePersonById", idParameter);
+        }
+    
+        public virtual ObjectResult<GetAllComments_Result> GetAllComments()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllComments_Result>("GetAllComments");
+        }
+    
+        public virtual ObjectResult<GetAllCompetences_Result> GetAllCompetences()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCompetences_Result>("GetAllCompetences");
+        }
+    
+        public virtual ObjectResult<GetAllIndicators_Result> GetAllIndicators()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllIndicators_Result>("GetAllIndicators");
+        }
+    
+        public virtual ObjectResult<GetAllPersons_Result> GetAllPersons()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllPersons_Result>("GetAllPersons");
+        }
+    
+        public virtual ObjectResult<GetCommentById_Result> GetCommentById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommentById_Result>("GetCommentById", idParameter);
+        }
+    
+        public virtual ObjectResult<GetCommentByIdPerson_Result> GetCommentByIdPerson(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommentByIdPerson_Result>("GetCommentByIdPerson", idParameter);
+        }
+    
+        public virtual ObjectResult<GetCompetenceById_Result> GetCompetenceById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCompetenceById_Result>("GetCompetenceById", idParameter);
+        }
+    
+        public virtual ObjectResult<GetCompetenceByIdPerson_Result> GetCompetenceByIdPerson(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCompetenceByIdPerson_Result>("GetCompetenceByIdPerson", idParameter);
+        }
+    
+        public virtual ObjectResult<GetIndicatorById_Result> GetIndicatorById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetIndicatorById_Result>("GetIndicatorById", idParameter);
+        }
+    
+        public virtual ObjectResult<GetIndicatorByIdCompetence_Result> GetIndicatorByIdCompetence(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetIndicatorByIdCompetence_Result>("GetIndicatorByIdCompetence", idParameter);
+        }
+    
+        public virtual ObjectResult<GetPersonById_Result> GetPersonById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersonById_Result>("GetPersonById", idParameter);
+        }
+    
+        public virtual int PostComment(string title, Nullable<int> personId)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var personIdParameter = personId.HasValue ?
+                new ObjectParameter("PersonId", personId) :
+                new ObjectParameter("PersonId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PostComment", titleParameter, personIdParameter);
+        }
+    
+        public virtual int PostCompetence(string title, Nullable<bool> ifActive, Nullable<int> personId)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var ifActiveParameter = ifActive.HasValue ?
+                new ObjectParameter("IfActive", ifActive) :
+                new ObjectParameter("IfActive", typeof(bool));
+    
+            var personIdParameter = personId.HasValue ?
+                new ObjectParameter("PersonId", personId) :
+                new ObjectParameter("PersonId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PostCompetence", titleParameter, ifActiveParameter, personIdParameter);
+        }
+    
+        public virtual int PostIndicator(string title, Nullable<bool> ifActive, Nullable<int> competenceId)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var ifActiveParameter = ifActive.HasValue ?
+                new ObjectParameter("IfActive", ifActive) :
+                new ObjectParameter("IfActive", typeof(bool));
+    
+            var competenceIdParameter = competenceId.HasValue ?
+                new ObjectParameter("CompetenceId", competenceId) :
+                new ObjectParameter("CompetenceId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PostIndicator", titleParameter, ifActiveParameter, competenceIdParameter);
+        }
+    
+        public virtual int PostPerson(string title, Nullable<bool> ifActive)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var ifActiveParameter = ifActive.HasValue ?
+                new ObjectParameter("IfActive", ifActive) :
+                new ObjectParameter("IfActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PostPerson", titleParameter, ifActiveParameter);
+        }
+    
+        public virtual int PutCommentById(Nullable<int> id, string title)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PutCommentById", idParameter, titleParameter);
+        }
+    
+        public virtual int PutCompetenceById(Nullable<int> id, string title, Nullable<bool> ifActive)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var ifActiveParameter = ifActive.HasValue ?
+                new ObjectParameter("IfActive", ifActive) :
+                new ObjectParameter("IfActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PutCompetenceById", idParameter, titleParameter, ifActiveParameter);
+        }
+    
+        public virtual int PutIndicatorById(Nullable<int> id, string title, Nullable<bool> ifActive)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var ifActiveParameter = ifActive.HasValue ?
+                new ObjectParameter("IfActive", ifActive) :
+                new ObjectParameter("IfActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PutIndicatorById", idParameter, titleParameter, ifActiveParameter);
+        }
+    
+        public virtual int PutPersonById(Nullable<int> id, string title, Nullable<bool> ifActive)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var ifActiveParameter = ifActive.HasValue ?
+                new ObjectParameter("IfActive", ifActive) :
+                new ObjectParameter("IfActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PutPersonById", idParameter, titleParameter, ifActiveParameter);
+        }
     }
 }
