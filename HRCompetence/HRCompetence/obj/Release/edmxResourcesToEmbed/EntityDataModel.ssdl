@@ -1,30 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="EntityDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="EntityDataModelStoreContainer">
-    <EntitySet Name="PersonSet" EntityType="EntityDataModel.Store.PersonSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CompetenceSet" EntityType="EntityDataModel.Store.CompetenceSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CommentSet" EntityType="EntityDataModel.Store.CommentSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IndicatorSet" EntityType="EntityDataModel.Store.IndicatorSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="PersonCompetence" Association="EntityDataModel.Store.PersonCompetence">
-      <End Role="Person" EntitySet="PersonSet" />
-      <End Role="Competence" EntitySet="CompetenceSet" />
-    </AssociationSet>
-    <AssociationSet Name="PersonComment" Association="EntityDataModel.Store.PersonComment">
-      <End Role="Person" EntitySet="PersonSet" />
-      <End Role="Comment" EntitySet="CommentSet" />
-    </AssociationSet>
-    <AssociationSet Name="CompetenceIndicator" Association="EntityDataModel.Store.CompetenceIndicator">
-      <End Role="Competence" EntitySet="CompetenceSet" />
-      <End Role="Indicator" EntitySet="IndicatorSet" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="PersonSet">
+<Schema Namespace="EntityDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CommentSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IfActive" Type="bit" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CompetenceSet">
     <Key>
@@ -33,15 +15,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IfActive" Type="bit" Nullable="false" />
-    <Property Name="PersonId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="CommentSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="PersonId" Type="int" />
   </EntityType>
   <EntityType Name="IndicatorSet">
     <Key>
@@ -52,40 +26,140 @@
     <Property Name="IfActive" Type="bit" Nullable="false" />
     <Property Name="CompetenceId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="PersonCompetence">
-    <End Role="Person" Type="EntityDataModel.Store.PersonSet" Multiplicity="0..1" />
-    <End Role="Competence" Type="EntityDataModel.Store.CompetenceSet" Multiplicity="*" />
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IfActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CompetenceIndicator">
+    <End Role="CompetenceSet" Type="Self.CompetenceSet" Multiplicity="1" />
+    <End Role="IndicatorSet" Type="Self.IndicatorSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Person">
+      <Principal Role="CompetenceSet">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Competence">
-        <PropertyRef Name="PersonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PersonComment">
-    <End Role="Person" Type="EntityDataModel.Store.PersonSet" Multiplicity="1" />
-    <End Role="Comment" Type="EntityDataModel.Store.CommentSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Comment">
-        <PropertyRef Name="PersonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CompetenceIndicator">
-    <End Role="Competence" Type="EntityDataModel.Store.CompetenceSet" Multiplicity="1" />
-    <End Role="Indicator" Type="EntityDataModel.Store.IndicatorSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Competence">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Indicator">
+      <Dependent Role="IndicatorSet">
         <PropertyRef Name="CompetenceId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PersonComment">
+    <End Role="PersonSet" Type="Self.PersonSet" Multiplicity="1" />
+    <End Role="CommentSet" Type="Self.CommentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommentSet">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonCompetence">
+    <End Role="PersonSet" Type="Self.PersonSet" Multiplicity="0..1" />
+    <End Role="CompetenceSet" Type="Self.CompetenceSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CompetenceSet">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="DeleteCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteCompetenceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteIndicatorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeletePersonById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetAllComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllCompetences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllIndicators" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllPersons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetCommentByIdPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetCompetenceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetCompetenceByIdPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetIndicatorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetIndicatorByIdCompetence" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetPersonById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="PostComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="PersonId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="PostCompetence" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IfActive" Type="bit" Mode="In" />
+    <Parameter Name="PersonId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="PostIndicator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IfActive" Type="bit" Mode="In" />
+    <Parameter Name="CompetenceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="PostPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IfActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="PutCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="PutCompetenceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IfActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="PutIndicatorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IfActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="PutPersonById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IfActive" Type="bit" Mode="In" />
+  </Function>
+  <EntityContainer Name="EntityDataModelStoreContainer">
+    <EntitySet Name="CommentSet" EntityType="Self.CommentSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompetenceSet" EntityType="Self.CompetenceSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IndicatorSet" EntityType="Self.IndicatorSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonSet" EntityType="Self.PersonSet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CompetenceIndicator" Association="Self.FK_CompetenceIndicator">
+      <End Role="CompetenceSet" EntitySet="CompetenceSet" />
+      <End Role="IndicatorSet" EntitySet="IndicatorSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonComment" Association="Self.FK_PersonComment">
+      <End Role="PersonSet" EntitySet="PersonSet" />
+      <End Role="CommentSet" EntitySet="CommentSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonCompetence" Association="Self.FK_PersonCompetence">
+      <End Role="PersonSet" EntitySet="PersonSet" />
+      <End Role="CompetenceSet" EntitySet="CompetenceSet" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <IisApp path="D:\Repositorium\HRCompetence\HRCompetence\HRCompetence\obj\Release\Package\PackageTmp" />
-  <setAcl path="D:\Repositorium\HRCompetence\HRCompetence\HRCompetence\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="D:\Repositorium\HRCompetence\HRCompetence\HRCompetence\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+  <IisApp path="C:\Users\dmitr\OneDrive\Документы\Repositorium\HR-Service\HRCompetence\HRCompetence\obj\Release\Package\PackageTmp" />
+  <setAcl path="C:\Users\dmitr\OneDrive\Документы\Repositorium\HR-Service\HRCompetence\HRCompetence\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\dmitr\OneDrive\Документы\Repositorium\HR-Service\HRCompetence\HRCompetence\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
 </sitemanifest>
