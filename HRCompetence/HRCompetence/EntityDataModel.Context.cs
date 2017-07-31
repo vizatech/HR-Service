@@ -274,5 +274,71 @@ namespace HRCompetence
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PutPersonById", idParameter, titleParameter, ifActiveParameter);
         }
+    
+        public virtual ObjectResult<GetPersonByAssociation_Result> GetPersonByAssociation(string text)
+        {
+            var textParameter = text != null ?
+                new ObjectParameter("Text", text) :
+                new ObjectParameter("Text", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersonByAssociation_Result>("GetPersonByAssociation", textParameter);
+        }
+    
+        public virtual ObjectResult<GetPersonByTitle_Result> GetPersonByTitle(string title)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersonByTitle_Result>("GetPersonByTitle", titleParameter);
+        }
+    
+        public virtual ObjectResult<GetCommentByTitleByIdPerson_Result> GetCommentByTitleByIdPerson(string title, Nullable<int> id)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommentByTitleByIdPerson_Result>("GetCommentByTitleByIdPerson", titleParameter, idParameter);
+        }
+    
+        public virtual ObjectResult<GetCompetenceByAssociation_Result> GetCompetenceByAssociation(string text)
+        {
+            var textParameter = text != null ?
+                new ObjectParameter("Text", text) :
+                new ObjectParameter("Text", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCompetenceByAssociation_Result>("GetCompetenceByAssociation", textParameter);
+        }
+    
+        public virtual ObjectResult<GetCompetenceByTitleByIdPerson_Result> GetCompetenceByTitleByIdPerson(string title, Nullable<int> id)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCompetenceByTitleByIdPerson_Result>("GetCompetenceByTitleByIdPerson", titleParameter, idParameter);
+        }
+    
+        public virtual ObjectResult<GetIndicatorByTitleByIdCompetence_Result> GetIndicatorByTitleByIdCompetence(string title, Nullable<int> id)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetIndicatorByTitleByIdCompetence_Result>("GetIndicatorByTitleByIdCompetence", titleParameter, idParameter);
+        }
     }
 }

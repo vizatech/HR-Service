@@ -91,6 +91,27 @@
       <Parameter Name="Title" Mode="In" Type="String" />
       <Parameter Name="IfActive" Mode="In" Type="Boolean" />
     </FunctionImport>
+    <FunctionImport Name="GetPersonByAssociation" ReturnType="Collection(EntityDataModel.GetPersonByAssociation_Result)">
+      <Parameter Name="Text" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetPersonByTitle" ReturnType="Collection(EntityDataModel.GetPersonByTitle_Result)">
+      <Parameter Name="Title" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetCommentByTitleByIdPerson" ReturnType="Collection(EntityDataModel.GetCommentByTitleByIdPerson_Result)">
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetCompetenceByAssociation" ReturnType="Collection(EntityDataModel.GetCompetenceByAssociation_Result)">
+      <Parameter Name="Text" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetCompetenceByTitleByIdPerson" ReturnType="Collection(EntityDataModel.GetCompetenceByTitleByIdPerson_Result)">
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetIndicatorByTitleByIdCompetence" ReturnType="Collection(EntityDataModel.GetIndicatorByTitleByIdCompetence_Result)">
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Person">
     <Key>
@@ -228,5 +249,38 @@
     <Property Type="Int32" Name="Id" Nullable="false" />
     <Property Type="String" Name="Title" Nullable="false" />
     <Property Type="Boolean" Name="IfActive" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetPersonByAssociation_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="Boolean" Name="IfActive" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetPersonByTitle_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="Boolean" Name="IfActive" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetCommentByTitleByIdPerson_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="Int32" Name="PersonId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetCompetenceByAssociation_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="Boolean" Name="IfActive" Nullable="false" />
+    <Property Type="Int32" Name="PersonId" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetCompetenceByTitleByIdPerson_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="Boolean" Name="IfActive" Nullable="false" />
+    <Property Type="Int32" Name="PersonId" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetIndicatorByTitleByIdCompetence_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" />
+    <Property Type="Boolean" Name="IfActive" Nullable="false" />
+    <Property Type="Int32" Name="CompetenceId" Nullable="false" />
   </ComplexType>
 </Schema>

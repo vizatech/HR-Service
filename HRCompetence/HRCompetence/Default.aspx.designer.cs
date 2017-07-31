@@ -13,15 +13,6 @@ namespace HRCompetence {
     public partial class _Default {
         
         /// <summary>
-        /// PanelDataRead элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelDataRead;
-        
-        /// <summary>
         /// SqlDataSourcePerson элемент управления.
         /// </summary>
         /// <remarks>
@@ -29,6 +20,69 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourcePerson;
+        
+        /// <summary>
+        /// SqlDataSourceCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCompetence;
+        
+        /// <summary>
+        /// SqlDataSourceComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceComment;
+        
+        /// <summary>
+        /// SqlDataSourceIndicator элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceIndicator;
+        
+        /// <summary>
+        /// TextBoxFindPerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxFindPerson;
+        
+        /// <summary>
+        /// FindPersonLabel элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label FindPersonLabel;
+        
+        /// <summary>
+        /// ListBoxFindPerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ListBoxFindPerson;
+        
+        /// <summary>
+        /// ButtonFindPerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonFindPerson;
         
         /// <summary>
         /// CheckBoxCreatePerson элемент управления.
@@ -94,40 +148,40 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button ButtonDeletePerson;
         
         /// <summary>
-        /// ListBoxPerson элемент управления.
+        /// TextBoxFindCompetence элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ListBoxPerson;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxFindCompetence;
         
         /// <summary>
-        /// LabelPerson элемент управления.
+        /// LabelFindCompetence элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelPerson;
+        protected global::System.Web.UI.WebControls.Label LabelFindCompetence;
         
         /// <summary>
-        /// SqlDataSourceCompetence элемент управления.
+        /// ListBoxFindCompetence элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCompetence;
+        protected global::System.Web.UI.WebControls.ListBox ListBoxFindCompetence;
         
         /// <summary>
-        /// SqlDataSourceComment элемент управления.
+        /// ButtonFindCompetence элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceComment;
+        protected global::System.Web.UI.WebControls.Button ButtonFindCompetence;
         
         /// <summary>
         /// CheckBoxCreateCompetence элемент управления.
@@ -193,24 +247,6 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button ButtonDeleteCompetence;
         
         /// <summary>
-        /// ListBoxCompetence элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ListBoxCompetence;
-        
-        /// <summary>
-        /// LabelCompetence элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelCompetence;
-        
-        /// <summary>
         /// TextBoxCreateComment элемент управления.
         /// </summary>
         /// <remarks>
@@ -229,22 +265,22 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button ButtonCreateComment;
         
         /// <summary>
-        /// TextBoxUpdateComment элемент управления.
+        /// TextBoxUpdateCommentNew элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxUpdateComment;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxUpdateCommentNew;
         
         /// <summary>
-        /// ButtonUpdateComment элемент управления.
+        /// ButtonUpdateCommentNew элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonUpdateComment;
+        protected global::System.Web.UI.WebControls.Button ButtonUpdateCommentNew;
         
         /// <summary>
         /// ButtonDeleteComment элемент управления.
@@ -254,33 +290,6 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonDeleteComment;
-        
-        /// <summary>
-        /// ListBoxComment элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ListBoxComment;
-        
-        /// <summary>
-        /// LabelComment элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelComment;
-        
-        /// <summary>
-        /// SqlDataSourceIndicator элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceIndicator;
         
         /// <summary>
         /// CheckBoxCreateIndicator элемент управления.
@@ -344,6 +353,114 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonDeleteIndicator;
+        
+        /// <summary>
+        /// UpdatePanel1 элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// PanelDataRead элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelDataRead;
+        
+        /// <summary>
+        /// ListBoxPerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ListBoxPerson;
+        
+        /// <summary>
+        /// LabelPerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelPerson;
+        
+        /// <summary>
+        /// AccordionCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton AccordionCompetence;
+        
+        /// <summary>
+        /// divCollapseCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel divCollapseCompetence;
+        
+        /// <summary>
+        /// ListBoxCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ListBoxCompetence;
+        
+        /// <summary>
+        /// LabelCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelCompetence;
+        
+        /// <summary>
+        /// AccordionComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton AccordionComment;
+        
+        /// <summary>
+        /// divCollapseComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel divCollapseComment;
+        
+        /// <summary>
+        /// ListBoxComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ListBoxComment;
+        
+        /// <summary>
+        /// LabelComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelComment;
         
         /// <summary>
         /// ListBoxIndicator элемент управления.

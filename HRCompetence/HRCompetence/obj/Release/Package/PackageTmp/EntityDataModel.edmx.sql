@@ -159,30 +159,6 @@ ON [dbo].[IndicatorSet]
     ([CompetenceId]);
 GO
 
--- Creating DATA for PersonSet
-SET IDENTITY_INSERT [dbo].[PersonSet] ON
-INSERT INTO [dbo].[PersonSet] (Id, Title, IfActive) VALUES (1, N'Татьяна', 'TRUE'), (2, N'Светлана', 'TRUE'),(3, N'Наталья', 'TRUE'),(4, N'Ирина', 'TRUE'),(5, N'Маргарита', 'FALSE');
-SET IDENTITY_INSERT [dbo].[PersonSet] OFF
-GO
-
--- Creating DATA for CommentSet
-SET IDENTITY_INSERT [dbo].[CommentSet] ON
-INSERT INTO [dbo].[CommentSet] (Id, Title, PersonId) VALUES (1, N'Умничка', 2), (2, N'Золотые руки', 2),(3, N'Светлая голова', 3),(4, N'Кудесница', 4),(5, N'Талантище', 5), (6, N'Одаренная', 3),(7, N'Трудолюбивая', 5),(8, N'Старательная', 3),(9, N'Неутомимая', 4);
-SET IDENTITY_INSERT [dbo].[CommentSet] OFF
-GO
-
--- Creating DATA for CompetenceSet
-SET IDENTITY_INSERT [dbo].[CompetenceSet] ON
-INSERT INTO [dbo].[CompetenceSet] (Id, Title, IfActive, PersonId) VALUES (1, N'Вождение вертолета', 'TRUE', 2), (2, N'Полив цветов', 'TRUE', 2),(3, N'Разгон облаков руками', 'TRUE', 3),(4, N'Разгон облаков тупыми предметами', 'FALSE', 3),(5, N'Сверление глубоких скважин (до 1000м)', 'FALSE', 4), (6, N'Сверление сверхглубоких скважин (свыше 1000м)', 'FALSE', 4),(7, N'Копка траншей лопатой', 'TRUE', 4),(8, N'Плетение бисером', 'TRUE', 5),(9, N'Китовая охота', 'FALSE', 5);
-SET IDENTITY_INSERT [dbo].[CompetenceSet] OFF
-GO
-
--- Creating DATA for IndicatorSet
-SET IDENTITY_INSERT [dbo].[IndicatorSet] ON
-INSERT INTO [dbo].[IndicatorSet] (Id, Title, IfActive, CompetenceId) VALUES (1, N'Включение вертолета', 'TRUE', 1), (2, N'Выключение вертолета', 'TRUE', 1),(3, N'Набор воды в стаканчик', 'TRUE', 2),(4, N'Выливание воды из стаканчика в горшочек', 'FALSE', 2),(5, N'постановка пустого стаканчика на полочку', 'FALSE', 2), (6, N'Получение лопаты под роспись', 'FALSE', 7),(7, N'Копание траншеи', 'TRUE', 7),(8, N'Перекур', 'TRUE', 7),(9, N'Возврат лопаты на склад', 'FALSE', 7);
-SET IDENTITY_INSERT [dbo].[IndicatorSet] OFF
-GO
-
 -- --------------------------------------------------
 -- Script has ended
 -- --------------------------------------------------
