@@ -1,12 +1,13 @@
 ﻿<%@ Page Title="Кабинет" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="HRCompetence._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+
 <!-- ЗАГОЛОВОК -->
     <div class="row">
         <div class="col-md-1"><span class="icon-bar"></span></div>
         <div class="col-md-10">
             <div class="jumbotron well">
-                <h2>Модуль анализа компетенций</h2>
+                <h2 id="GeneralHead">Модуль анализа компетенций</h2>
                 <blockquote class="primary">
                     <p class="lead">Приложение написано в архитектуре <mark>ASP.NET Web Forms / Entity Data Model</mark></p>
                 </blockquote>                
@@ -116,13 +117,14 @@
                     </asp:SqlDataSource>
 
 <!-- МОДАЛЬНЫЕ ОКНА -->
+       
     <!-- Person -->
                     <!-- Тело модального окна контекста поиска учетной записи сотрудника -->
-                    <div class="modal fade" id="FindPerson" tabindex="-1" role="dialog" aria-labelledby="CreatePersonHead">
+                    <div <%= PersonModalClass()%> id="FindPerson" tabindex="-1" role="dialog" aria-labelledby="CreatePersonLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center bg-info">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <asp:Button ID="ButtonFindPersonHeadClose" BorderStyle="None" CssClass="close" runat="server" Text="&times;" OnClick="PersonHeadButtonClose_Click" /> 
                                     <h4 class="modal-title" id="FindPersonHead">Поиск учетной записи</h4>
                                 </div>
                                 <div class="modal-body text-left">
@@ -134,24 +136,24 @@
                                     <div class="col-md-1"><span class="icon-bar"></span></div>
                                         <div class="col-md-10">
                                             <div class="input-group">
-                                                <asp:TextBox ID="TextBoxFindPerson" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" OnTextChanged="TextBoxFindPerson_TextChanged" AutoPostBack="True"></asp:TextBox>
+                                                <asp:TextBox ID="TextBoxFindPerson" placeholder="Search for..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" AutoPostBack="True"></asp:TextBox>
                                                 <span class="input-group-addon">
-                                                    <asp:Label ID="FindPersonLabel" runat="server" Text="..."></asp:Label>                                        
+                                                    <asp:Button ID="FindPersonList" runat="server" BorderStyle="None" Text="Go!" OnClick="FindPersonList_Click" />
                                                 </span>
                                             </div>
                                             <br />
-                                            <asp:ListBox ID="ListBoxFindPerson" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" Rows="5"></asp:ListBox>
+                                            <asp:ListBox ID="ListBoxFindPerson" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" Rows="7" Height="200px"></asp:ListBox>
                                         </div>
                                     <div class="col-md-1"><span class="icon-bar"></span></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                                    <asp:Button ID="ButtonFindPerson" CssClass="btn btn-primary" runat="server" Text="Выбрать" OnClick="ButtonFindPerson_Click" />
+                                    <asp:Button ID="ButtonFindPersonBottomClose" CssClass="btn btn-default" runat="server" Text="Отменить" OnClick="PersonHeadButtonClose_Click" />
+                                    <asp:Button ID="ButtonFindPerson" CssClass="btn btn-primary" runat="server" Text="Найти" OnClick="ButtonFindPerson_Click"/>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- конец контекста -->
+                    </div> <!-- конец контекста -->
 
                     <!-- Тело модального окна контекста добавления сотрудника -->
                     <div class="modal fade" id="CreatePerson" tabindex="-1" role="dialog" aria-labelledby="CreatePersonLabel">
@@ -174,7 +176,7 @@
                                         <span class="input-group-addon">
                                         <asp:CheckBox ID="CheckBoxCreatePerson" runat="server" ToolTip="Отметьте галочкой включена или нет эта учетная запись" Checked="True" />  
                                         </span>
-                                        <asp:TextBox ID="TextBoxCreatePerson" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите имя и фамилию сотрудника">Имя и фамилия</asp:TextBox>
+                                        <asp:TextBox ID="TextBoxCreatePerson" placeholder="Фамилия Имя ..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите имя и фамилию сотрудника">Имя и фамилия</asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -209,7 +211,7 @@
                                         <span class="input-group-addon">
                                         <asp:CheckBox ID="CheckBoxUpdatePerson" runat="server" ToolTip="Отметьте галочкой включена или нет эта учетная запись" Checked="True" />  
                                         </span>
-                                        <asp:TextBox ID="TextBoxUpdatePerson" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите имя и фамилию"></asp:TextBox>
+                                        <asp:TextBox ID="TextBoxUpdatePerson" placeholder="Фамилия Имя..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите имя и фамилию"></asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -247,11 +249,11 @@
 
     <!-- Competence -->
                     <!-- Тело модального окна контекста поиска учетной записи сотрудника -->
-                    <div class="modal fade" id="FindCompetence" tabindex="-1" role="dialog" aria-labelledby="FindCompetenceHead">
+                    <div <%= CompetenceModalClass()%> id="FindCompetence" tabindex="-1" role="dialog" aria-labelledby="FindCompetenceHead">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center bg-info">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <asp:Button ID="ButtonFindCompetenceHeadClose" Style="border-width: 0px;" CssClass="close" runat="server" Text="&times;" OnClick="ButtonFindCompetenceHeadClose_Click" /> 
                                     <h4 class="modal-title" id="FindCompetenceHead">Поиск компетенции</h4>
                                 </div>
                                 <div class="modal-body text-left">
@@ -263,20 +265,20 @@
                                     <div class="col-md-1"><span class="icon-bar"></span></div>
                                         <div class="col-md-10">
                                             <div class="input-group">
-                                                <asp:TextBox ID="TextBoxFindCompetence" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" OnTextChanged="TextBoxFindCompetence_TextChanged" AutoPostBack="True"></asp:TextBox>
+                                                <asp:TextBox ID="TextBoxFindCompetence" placeholder="Search for..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" AutoPostBack="True"></asp:TextBox>
                                                 <span class="input-group-addon">
-                                                    <asp:Label ID="LabelFindCompetence" runat="server" Text="..."></asp:Label>                                        
+                                                    <asp:Button ID="LabelFindCompeten" runat="server" BorderStyle="None" Text="Go!" OnClick="LabelFindCompeten_Click" />
                                                 </span>
                                             </div>
                                             <br />
-                                            <asp:ListBox ID="ListBoxFindCompetence" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" Rows="5"></asp:ListBox>
+                                            <asp:ListBox ID="ListBoxFindCompetence" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" Rows="7" Height="200"></asp:ListBox>
                                         </div>
                                     <div class="col-md-1"><span class="icon-bar"></span></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                                    <asp:Button ID="ButtonFindCompetence" CssClass="btn btn-primary" runat="server" Text="Выбрать" OnClick="ButtonFindCompetence_Click" />
+                                    <asp:Button ID="ButtonFindCompetenceBottomClose" CssClass="btn btn-default" runat="server" Text="Отменить" OnClick="ButtonFindCompetenceHeadClose_Click" />
+                                    <asp:Button ID="ButtonFindCompetence" CssClass="btn btn-primary" runat="server" Text="Найти" OnClick="ButtonFindCompetence_Click" />
                                 </div>
                             </div>
                         </div>
@@ -303,7 +305,7 @@
                                         <span class="input-group-addon">
                                         <asp:CheckBox ID="CheckBoxCreateCompetence" runat="server" ToolTip="Отметьте галочкой включена или нет эта компетенция" Checked="True" />  
                                         </span>
-                                        <asp:TextBox ID="TextBoxCreateCompetence" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание компетенции">Компетенция</asp:TextBox>
+                                        <asp:TextBox ID="TextBoxCreateCompetence" placeholder="Компетенция..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание компетенции"></asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -338,7 +340,7 @@
                                         <span class="input-group-addon">
                                         <asp:CheckBox ID="CheckBoxUpdateCompetence" runat="server" ToolTip="Отметьте галочкой включена или нет эта компетенция" Checked="True" />  
                                         </span>
-                                        <asp:TextBox ID="TextBoxUpdateCompetence" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание компетенции"></asp:TextBox>
+                                        <asp:TextBox ID="TextBoxUpdateCompetence"  placeholder="Компетенция..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание компетенции"></asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -392,7 +394,7 @@
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
                                     <div class="col-md-10">
                                     <div class="form-group">
-                                        <asp:TextBox ID="TextBoxCreateComment" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите ваш комментарий">Комментарий</asp:TextBox>
+                                        <asp:TextBox ID="TextBoxCreateComment" placeholder="Комментарий..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите ваш комментарий"></asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -423,7 +425,7 @@
                                         <div class="col-md-1"><span class="icon-bar"></span></div>
                                         <div class="col-md-10">
                                             <div class="input-form">
-                                                <asp:TextBox ID="TextBoxUpdateCommentNew" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовый комментарий"></asp:TextBox>
+                                                <asp:TextBox ID="TextBoxUpdateCommentNew"  placeholder="Комментарий..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовый комментарий"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -481,7 +483,7 @@
                                         <span class="input-group-addon">
                                         <asp:CheckBox ID="CheckBoxCreateIndicator" runat="server" ToolTip="Отметьте галочкой включен или нет этот индикатор" Checked="True" />  
                                         </span>
-                                        <asp:TextBox ID="TextBoxCreateIndicator" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание индикатора">Индикатор</asp:TextBox>
+                                        <asp:TextBox ID="TextBoxCreateIndicator" placeholder="Индикатор..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание индикатора"></asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -516,7 +518,7 @@
                                         <span class="input-group-addon">
                                         <asp:CheckBox ID="CheckBoxUpdateIndicator" runat="server" ToolTip="Отметьте галочкой включен или нет этот индикатор" Checked="True" />  
                                         </span>
-                                        <asp:TextBox ID="TextBoxUpdateIndicator" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание индикатора"></asp:TextBox>
+                                        <asp:TextBox ID="TextBoxUpdateIndicator" placeholder="Индикатор..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовое описание индикатора"></asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -553,9 +555,8 @@
                     </div><!-- конец контекста -->
 
 <!-- БЛОК ОБРАБОТКИ ДАННЫХ -->
-
-<!--    <asp:UpdatePanel ID="UpdatePanel1" runat="server"> 
-        <ContentTemplate> -->
+<!-- <asp:UpdatePanel ID="UpdatePanel1" runat="server"> 
+    <ContentTemplate> -->
 
             <div class="row">
                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -563,7 +564,7 @@
 
     <!-- Person -->
                     <div class="col-md-3">
-                        <div class="panel panel-primary">
+                        <div id="PersonHeader" class="panel panel-primary">
 
         <!-- Заголовок -->
                             <div class="panel-heading">
@@ -581,7 +582,7 @@
                                                 <li><a data-toggle="modal" data-target="#UpdatePerson">Изменить</a></li>
                                                 <li><a data-toggle="modal" data-target="#DeletePerson">Удалить</a></li>
                                                 <li role="separator" class="divider"></li>
-                                                <li><a data-toggle="modal" data-target="#FindPerson">Найти</a></li>
+                                                <li><asp:Button ID="LinkButtonFindPerson" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" OnClick="LinkButtonFindPerson_Click" Text="Найти" /></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -594,7 +595,7 @@
                             <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-md-2 text-left text-info">
-                                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-md-10 text-left">
                                         <asp:Label ID="LabelPerson" runat="server" Font-Size="X-Small"></asp:Label>
@@ -608,16 +609,14 @@
                     <div class="col-md-4">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <!-- Competence -->
-                             <div class="panel panel-primary">
+                             <div id="CompetenceHeader" class="panel panel-primary">
 
          <!-- Заголовок -->
                                <div class="panel-heading" role="tab" id="headingOne">
                                     <div class="row">
                                         <div class="col-md-8 text-left">
                                             <h4 class="panel-title">
-                                                <asp:LinkButton ID="AccordionCompetence" runat="server" OnClick="AccordionCompetenceButton_Click">
-                                                    Компетенции
-                                                </asp:LinkButton>
+                                                <asp:Button ID="AccordionCompetence" CssClass="btn btn-primary" Style="border-width: 0px; text-align:left; padding: 0px 20px;" runat="server" OnClick="AccordionCompetenceButton_Click" Text="Компетенции" />
                                             </h4>
                                         </div>
                                         <div class="col-md-4 text-right">
@@ -630,7 +629,7 @@
                                                     <li><a data-toggle="modal" data-target="#UpdateCompetence">Изменить</a></li>
                                                     <li><a data-toggle="modal" data-target="#DeleteCompetence">Удалить</a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a data-toggle="modal" data-target="#FindCompetence">Найти</a></li>
+                                                    <li><asp:Button ID="LinkButtonFindCompetence" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Найти" OnClick="LinkButtonFindCompetence_Click" /></li>
                                                     <li role="separator" class="divider"></li>
                                                     <li><a href="#">Загрузить из файла</a></li>
                                                     <li><a href="#">Выгрузить в файл</a></li>
@@ -641,7 +640,7 @@
                                 </div>
 
         <!-- Тело -->
-                                <asp:Panel ID="divCollapseCompetence" runat="server" CssClass="panel-collapse collapse in">
+                                <div id="divCollapseCompetence" <%= AccordionCompetenceClass()%> role="tabpanel" aria-labelledby="headingOne">
                                     <asp:ListBox CssClass="media-object panel-body" width="100%" Style="max-width: 500px; border-width: 0px" ID="ListBoxCompetence" runat="server" DataSourceID="SqlDataSourceCompetence" DataTextField="Title" DataValueField="Id" Font-Size="Medium" Rows="5" AutoPostBack="True" Height="155px" OnSelectedIndexChanged="ListBoxCompetence_SelectedIndexChanged"></asp:ListBox>
 
         <!-- Футер -->
@@ -655,20 +654,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                </asp:Panel>    
+                                </div>  
                             </div>
 
     <!-- Comment -->
-                            <div class="panel panel-primary">
+                            <div  id="CommentHeader" class="panel panel-primary">
 
         <!-- Заголовок -->
                                 <div class="panel-heading" role="tab" id="headingTwo">
                                     <div class="row">
                                         <div class="col-md-8 text-left">
                                             <h4 class="panel-title">
-                                                <asp:LinkButton ID="AccordionComment" runat="server" OnClick="AccordionCommentButton_Click">
-                                                    Комментарии
-                                                </asp:LinkButton>
+                                                <asp:Button ID="AccordionComment" CssClass="btn btn-primary" Style="border-width: 0px; text-align:left; padding: 0px 20px;" runat="server" OnClick="AccordionCommentButton_Click" Text="Комментарии" />
                                             </h4>
                                         </div>
                                         <div class="col-md-4 text-right">
@@ -685,10 +682,10 @@
                                         </div>
                                     </div>
                                 </div>
-
+                               
         <!-- Тело -->
-                                <asp:Panel ID="divCollapseComment" CssClass="panel-collapse collapse" runat="server">
-                                    <asp:ListBox CssClass="media-object panel-body" width="100%" Style="max-width: 500px; border-width: 0px" ID="ListBoxComment" runat="server" DataSourceID="SqlDataSourceComment" DataTextField="Title" DataValueField="Id" Font-Size="Medium" Rows="5" AutoPostBack="True" Height="155px" ViewStateMode="Disabled" OnSelectedIndexChanged="ListBoxComment_SelectedIndexChanged"></asp:ListBox>
+                                <div id="divCollapseComment" <%= AccordionCommentClass()%> role="tabpanel" aria-labelledby="headingTwo">
+                                    <asp:ListBox CssClass="media-object panel-body" width="100%" Style="max-width: 500px; border-width: 0px" ID="ListBoxComment" runat="server" DataSourceID="SqlDataSourceComment" DataTextField="Title" DataValueField="Id" Font-Size="Medium" Rows="5" AutoPostBack="True" Height="155px" OnSelectedIndexChanged="ListBoxComment_SelectedIndexChanged"></asp:ListBox>
         <!-- Футер -->
                                     <div class="panel-footer">
                                         <div class="row">
@@ -700,15 +697,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                </asp:Panel>
-
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
 
     <!-- Indicator -->
                     <div class="col-md-3">
-                        <div class="panel panel-primary">
+                        <div  id="IndicatorHeader" class="panel panel-primary">
         <!-- Заголовок -->
                             <div class="panel-heading">
                                 <div class="row">
@@ -748,8 +745,8 @@
                 </asp:Panel>
                 <div class="col-md-1"><span class="icon-bar"></span></div>
             </div>
-
-<!--        </ContentTemplate>
-    </asp:UpdatePanel> -->
-
+            <div id="FooterFade" <%= BottomBodyModal()%> ></div>
+<!--    </ContentTemplate>
+</asp:UpdatePanel> -->
+                                                        
 </asp:Content>

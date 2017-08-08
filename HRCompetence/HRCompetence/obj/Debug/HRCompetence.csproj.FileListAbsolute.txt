@@ -188,7 +188,7 @@ C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetenc
 C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\bin\ru\Microsoft.AspNet.FriendlyUrls.resources.dll
 C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\obj\Debug\HRCompetence.dll
 C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\obj\Debug\HRCompetence.pdb
-C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\obj\Debug\HRCompetence.csprojResolveAssemblyReference.cache
 C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\bin\HRCompetence.dll.config
 C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\bin\HRCompetence.dll
 C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\bin\HRCompetence.pdb
+C:\Users\dmitr\OneDrive\Документы\Repositorium\HRCompetence\HRCompetence\HRCompetence\obj\Debug\HRCompetence.csprojResolveAssemblyReference.cache

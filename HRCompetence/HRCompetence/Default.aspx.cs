@@ -10,62 +10,266 @@ namespace HRCompetence
 {
     public partial class _Default : Page
     {
+        private class PublicCollection
+        {
+            public string FindPersonModal { get; set; }
+            public string FindCompetenceModal { get; set; }
+            public string TopBodyModal { get; set; }
+            public string BottomBodyModal { get; set; }
+            public string AccordionCompetence { get; set; }
+            public string AccordionComment { get; set; }
+        }
+
         private EntityDataModelContainer _context = new EntityDataModelContainer();
+
+        private PublicCollection _collection = new PublicCollection();
+
+        public string TopBodyModal()
+        {
+            return _collection.TopBodyModal;
+        }
+
+        public string BottomBodyModal()
+        {
+            return _collection.BottomBodyModal;
+        }
+
+        public string PersonModalClass()
+        {
+            return _collection.FindPersonModal;
+        }
+
+        public string CompetenceModalClass()
+        {
+            return _collection.FindCompetenceModal;
+        }
+
+        public string AccordionCompetenceClass()
+        {
+            return _collection.AccordionCompetence;
+        }
+
+        public string AccordionCommentClass()
+        {
+            return _collection.AccordionComment;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            HttpCookie httpCookie = Request.Cookies["UserState"];
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
 
-            if (httpCookie == null)
+            if (httpCookie != null)
             {
+                _collection.AccordionCompetence = httpCookie["AccordionCompetence"];
+                _collection.AccordionComment = httpCookie["AccordionComment"];
+                _collection.FindPersonModal = httpCookie["FindPersonModal"];
+                _collection.FindCompetenceModal = httpCookie["FindCompetenceModal"];
+                _collection.TopBodyModal = httpCookie["TopBodyModal"];
+                _collection.BottomBodyModal = httpCookie["BottomBodyModal"];
             }
             else
             {
-                divCollapseCompetence.CssClass = httpCookie["divCollapseCompetenceClass"];
-                divCollapseComment.CssClass = httpCookie["divCollapseCommentClass"];
+                httpCookie = new HttpCookie("UsersState");
+
+                _collection.AccordionCompetence = "Class='panel-collapse collapse in'";
+                httpCookie["AccordionCompetence"] = "Class='panel-collapse collapse in'";
+                _collection.AccordionComment = "Class='panel-collapse collapse'";
+                httpCookie["AccordionComment"] = "Class='panel-collapse collapse'";
+                _collection.FindPersonModal = "Class='modal fade' Style='display:none' ";
+                httpCookie["FindPersonModal"] = "Class='modal fade' Style='display:none' ";
+                _collection.FindCompetenceModal = "Class='modal fade' Style='display:none' ";
+                httpCookie["FindCompetenceModal"] = "Class='modal fade' Style='display:none' ";
+                _collection.TopBodyModal = "";
+                httpCookie["TopBodyModal"] = "";
+                _collection.BottomBodyModal = "";
+                httpCookie["BottomBodyModal"] = "";
+
+                httpCookie.Expires = DateTime.Now.AddMinutes(20);
+
+                Response.Cookies.Add(httpCookie);
             }
         }
 
-
+        #region аккордеон
         protected void AccordionCompetenceButton_Click(object sender, EventArgs e)
         {
-            HttpCookie httpCookie = Request.Cookies["UserState"];
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
 
-            if (httpCookie == null)
-            {
-                httpCookie = new HttpCookie("UserState");
-            }
-
-            divCollapseCompetence.CssClass = "panel-collapse collapse in";
-            divCollapseComment.CssClass = "panel-collapse collapse";
-            httpCookie["divCollapseCompetenceClass"] = divCollapseCompetence.CssClass.ToString();
-            httpCookie["divCollapseCommentClass"] = divCollapseComment.CssClass.ToString();
+            httpCookie["AccordionCompetence"] = "Class='panel-collapse collapse in'";
+            _collection.AccordionCompetence = "Class='panel-collapse collapse in'";
+            httpCookie["AccordionComment"] = "Class='panel-collapse collapse'";
+            _collection.AccordionComment = "Class='panel-collapse collapse'";
 
             httpCookie.Expires = DateTime.Now.AddMinutes(20);
 
             Response.Cookies.Add(httpCookie);
+
         }
 
         protected void AccordionCommentButton_Click(object sender, EventArgs e)
         {
-            HttpCookie httpCookie = Request.Cookies["UserState"];
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
 
-            if (httpCookie == null)
+            httpCookie["AccordionCompetence"] = "Class='panel-collapse collapse'";
+            _collection.AccordionCompetence = "Class='panel-collapse collapse'";
+            httpCookie["AccordionComment"] = "Class='panel-collapse collapse in'";
+            _collection.AccordionComment = "Class='panel-collapse collapse in'";
+
+            httpCookie.Expires = DateTime.Now.AddMinutes(20);
+            Response.Cookies.Add(httpCookie);
+
+        }
+#endregion
+
+        #region поиск учетных записей
+        protected void FindPersonList_Click(object sender, EventArgs e)
+        {
+            var _person = _context.GetPersonByAssociation(TextBoxFindPerson.Text).ToList();
+            
+            if (_person.Any())
             {
-                httpCookie = new HttpCookie("UserState");
+                ListBoxFindPerson.DataSource = _person;
+                ListBoxFindPerson.DataTextField = "Title";
+                ListBoxFindPerson.DataValueField = "Id";
+                ListBoxFindPerson.DataBind();
             }
+        }
 
-            divCollapseCompetence.CssClass = "panel-collapse collapse";
-            divCollapseComment.CssClass = "panel-collapse collapse in";
-            httpCookie["divCollapseCompetenceClass"] = divCollapseCompetence.CssClass.ToString();
-            httpCookie["divCollapseCommentClass"] = divCollapseComment.CssClass.ToString();
+        protected void ButtonFindPerson_Click(object sender, EventArgs e)
+        {
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
+
+            _collection.FindPersonModal = "Class='modal fade' Style='display:none' ";
+            httpCookie["FindPersonModal"] = "Class='modal fade' Style='display:none' ";
+            _collection.TopBodyModal = "";
+            httpCookie["TopBodyModal"] = "";
+            _collection.BottomBodyModal = "";
+            httpCookie["BottomBodyModal"] = "";
+
+            httpCookie.Expires = DateTime.Now.AddMinutes(20);
+
+            Response.Cookies.Add(httpCookie);
+
+            ListBoxPerson.ClearSelection();
+            ListBoxPerson.Items.FindByValue(ListBoxFindPerson.SelectedItem.Value).Selected=true;
+        }
+
+        protected void PersonHeadButtonClose_Click(object sender, EventArgs e)
+        {
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
+
+            _collection.FindPersonModal = "Class='modal fade' Style='display:none' ";
+            httpCookie["FindPersonModal"] = "Class='modal fade' Style='display:none' ";
+            _collection.TopBodyModal = "";
+            httpCookie["TopBodyModal"] = "";
+            _collection.BottomBodyModal = "";
+            httpCookie["BottomBodyModal"] = "";
 
             httpCookie.Expires = DateTime.Now.AddMinutes(20);
 
             Response.Cookies.Add(httpCookie);
         }
 
-#region методы контекста Учетной записи
+        protected void LinkButtonFindPerson_Click(object sender, EventArgs e)
+        {
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
+
+            _collection.FindPersonModal = "Class='modal fade in' Style='display:block' ";
+            httpCookie["FindPersonModal"] = "Class='modal fade in' Style='display:block' ";
+            _collection.TopBodyModal = "Class='modal-open' Style='padding-right: 12px' ";
+            httpCookie["TopBodyModal"] = "Class='modal-open' Style='padding-right: 12px' ";
+            _collection.BottomBodyModal = "Class='modal-backdrop fade in'";
+            httpCookie["BottomBodyModal"] = "Class='modal-backdrop fade in'";
+
+            httpCookie.Expires = DateTime.Now.AddMinutes(20);
+
+            Response.Cookies.Add(httpCookie);
+        }
+        #endregion
+
+        #region поиск компетенций
+        protected void LabelFindCompeten_Click(object sender, EventArgs e)
+        {
+            var _competence = _context.GetCompetenceByAssociation(TextBoxFindCompetence.Text).ToList();
+
+            if (_competence.Any())
+            {
+                ListBoxFindCompetence.DataSource = _competence;
+                ListBoxFindCompetence.DataTextField = "Title";
+                ListBoxFindCompetence.DataValueField = "Id";
+                ListBoxFindCompetence.DataBind();
+            }
+        }
+
+        protected void ButtonFindCompetence_Click(object sender, EventArgs e)
+        {
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
+
+            _collection.FindCompetenceModal = "Class='modal fade' Style='display:none' ";
+            httpCookie["FindCompetenceModal"] = "Class='modal fade' Style='display:none' ";
+            _collection.TopBodyModal = "";
+            httpCookie["TopBodyModal"] = "";
+            _collection.BottomBodyModal = "";
+            httpCookie["BottomBodyModal"] = "";
+
+            httpCookie.Expires = DateTime.Now.AddMinutes(20);
+
+            Response.Cookies.Add(httpCookie);
+
+            int.TryParse(ListBoxFindCompetence.SelectedItem.Value, out int _idc);
+            if (_idc > 0)
+            {
+                var _competence = _context.GetCompetenceById(_idc).ToList();
+
+                if (_competence.Any())
+                {
+                    int _idp = _competence.First().PersonId.Value;
+
+                    ListBoxPerson.ClearSelection();
+                    ListBoxPerson.Items.FindByValue(_idp.ToString()).Selected = true;
+
+                    ListBoxCompetence.ClearSelection();
+                    ListBoxCompetence.DataBind();
+                    ListBoxCompetence.Items.FindByValue(_idc.ToString()).Selected = true;
+                }
+            }
+        }
+
+        protected void ButtonFindCompetenceHeadClose_Click(object sender, EventArgs e)
+        {
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
+
+            _collection.FindCompetenceModal = "Class='modal fade' Style='display:none' ";
+            httpCookie["FindCompetenceModal"] = "Class='modal fade' Style='display:none' ";
+            _collection.TopBodyModal = "";
+            httpCookie["TopBodyModal"] = "";
+            _collection.BottomBodyModal = "";
+            httpCookie["BottomBodyModal"] = "";
+
+            httpCookie.Expires = DateTime.Now.AddMinutes(20);
+
+            Response.Cookies.Add(httpCookie);
+        }
+
+        protected void LinkButtonFindCompetence_Click(object sender, EventArgs e)
+        {
+            HttpCookie httpCookie = Request.Cookies["UsersState"];
+
+            _collection.FindCompetenceModal = "Class='modal fade in' Style='display:block' ";
+            httpCookie["FindCompetenceModal"] = "Class='modal fade in' Style='display:block' ";
+            _collection.TopBodyModal = "Class='modal-open' Style='padding-right: 12px' ";
+            httpCookie["TopBodyModal"] = "Class='modal-open' Style='padding-right: 12px' ";
+            _collection.BottomBodyModal = "Class='modal-backdrop fade in'";
+            httpCookie["BottomBodyModal"] = "Class='modal-backdrop fade in'";
+
+            httpCookie.Expires = DateTime.Now.AddMinutes(20);
+
+            Response.Cookies.Add(httpCookie);
+        }
+
+        #endregion
+
+        #region методы контекста Учетной записи
         protected void ListBoxPerson_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (int.TryParse(ListBoxPerson.SelectedValue, out int _id))
@@ -164,7 +368,7 @@ namespace HRCompetence
         }
 #endregion
 
-#region методы контекста Компетенции
+        #region методы контекста Компетенции
         protected void ListBoxCompetence_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (int.TryParse(ListBoxCompetence.SelectedValue, out int _id))
@@ -266,7 +470,7 @@ namespace HRCompetence
         }
 #endregion
 
-#region методы контекста Индикатора    
+        #region методы контекста Индикатора    
         protected void ListBoxIndicator_SelectedIndexChanged(object sender, EventArgs e)
         {
             //получаем контекст Индикатора по его id в базе данных
@@ -368,7 +572,7 @@ namespace HRCompetence
         }
 #endregion
 
-#region методы контекста Комментария
+        #region методы контекста Комментария
         protected void ListBoxComment_SelectedIndexChanged(object sender, EventArgs e)
         {
             //получаем контекст Комментария по его id в базе данных
@@ -473,24 +677,5 @@ namespace HRCompetence
         }
         #endregion
 
-        protected void TextBoxFindPerson_TextChanged(object sender, EventArgs e)
-        {
-            FindPersonLabel.Text = "onenter"; //_context.GetPersonByTitle(TextBoxFindPerson.Text).Count().ToString() + " записей найдено";
-        }
-
-        protected void ButtonFindPerson_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void TextBoxFindCompetence_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ButtonFindCompetence_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

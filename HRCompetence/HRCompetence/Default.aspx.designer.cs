@@ -49,6 +49,15 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceIndicator;
         
         /// <summary>
+        /// ButtonFindPersonHeadClose элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonFindPersonHeadClose;
+        
+        /// <summary>
         /// TextBoxFindPerson элемент управления.
         /// </summary>
         /// <remarks>
@@ -58,13 +67,13 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.TextBox TextBoxFindPerson;
         
         /// <summary>
-        /// FindPersonLabel элемент управления.
+        /// FindPersonList элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FindPersonLabel;
+        protected global::System.Web.UI.WebControls.Button FindPersonList;
         
         /// <summary>
         /// ListBoxFindPerson элемент управления.
@@ -74,6 +83,15 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox ListBoxFindPerson;
+        
+        /// <summary>
+        /// ButtonFindPersonBottomClose элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonFindPersonBottomClose;
         
         /// <summary>
         /// ButtonFindPerson элемент управления.
@@ -148,6 +166,15 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button ButtonDeletePerson;
         
         /// <summary>
+        /// ButtonFindCompetenceHeadClose элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonFindCompetenceHeadClose;
+        
+        /// <summary>
         /// TextBoxFindCompetence элемент управления.
         /// </summary>
         /// <remarks>
@@ -157,13 +184,13 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.TextBox TextBoxFindCompetence;
         
         /// <summary>
-        /// LabelFindCompetence элемент управления.
+        /// LabelFindCompeten элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelFindCompetence;
+        protected global::System.Web.UI.WebControls.Button LabelFindCompeten;
         
         /// <summary>
         /// ListBoxFindCompetence элемент управления.
@@ -173,6 +200,15 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox ListBoxFindCompetence;
+        
+        /// <summary>
+        /// ButtonFindCompetenceBottomClose элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonFindCompetenceBottomClose;
         
         /// <summary>
         /// ButtonFindCompetence элемент управления.
@@ -373,6 +409,15 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Panel PanelDataRead;
         
         /// <summary>
+        /// LinkButtonFindPerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonFindPerson;
+        
+        /// <summary>
         /// ListBoxPerson элемент управления.
         /// </summary>
         /// <remarks>
@@ -397,16 +442,16 @@ namespace HRCompetence {
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AccordionCompetence;
+        protected global::System.Web.UI.WebControls.Button AccordionCompetence;
         
         /// <summary>
-        /// divCollapseCompetence элемент управления.
+        /// LinkButtonFindCompetence элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel divCollapseCompetence;
+        protected global::System.Web.UI.WebControls.Button LinkButtonFindCompetence;
         
         /// <summary>
         /// ListBoxCompetence элемент управления.
@@ -433,16 +478,7 @@ namespace HRCompetence {
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AccordionComment;
-        
-        /// <summary>
-        /// divCollapseComment элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel divCollapseComment;
+        protected global::System.Web.UI.WebControls.Button AccordionComment;
         
         /// <summary>
         /// ListBoxComment элемент управления.

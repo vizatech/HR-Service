@@ -35,8 +35,12 @@
                 <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                
+                <asp:ScriptReference Path="~/Scripts/js-cookie/js.cookie.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
+
                 <%--Кастомные скрипты--%>
+                <asp:ScriptReference Path="~/Scripts/WebForms/Customs/ModalsHandler.js" />
 
             </Scripts>
         </asp:ScriptManager>
