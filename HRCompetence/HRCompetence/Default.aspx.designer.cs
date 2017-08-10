@@ -283,6 +283,42 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button ButtonDeleteCompetence;
         
         /// <summary>
+        /// ImportFileText элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ImportFileText;
+        
+        /// <summary>
+        /// ImportCompetenceButton элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ImportCompetenceButton;
+        
+        /// <summary>
+        /// DownloadFormats элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList DownloadFormats;
+        
+        /// <summary>
+        /// DownloadButton элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button DownloadButton;
+        
+        /// <summary>
         /// TextBoxCreateComment элемент управления.
         /// </summary>
         /// <remarks>
@@ -443,15 +479,6 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button AccordionCompetence;
-        
-        /// <summary>
-        /// LinkButtonFindCompetence элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button LinkButtonFindCompetence;
         
         /// <summary>
         /// ListBoxCompetence элемент управления.

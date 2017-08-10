@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace HRCompetence
 {
@@ -468,7 +470,101 @@ namespace HRCompetence
                 }
             }
         }
-#endregion
+
+        protected void DownloadButton_Click(object sender, EventArgs e)
+        {
+            int Id = Convert.ToInt32(ListBoxCompetence.SelectedValue);
+            var Comp = _context.GetCompetenceById(Id);
+            CompTest CreateCompetenceClass = new CompTest();
+            CreateCompetenceClass.Title = Comp.First().Title;
+            Comp = _context.GetCompetenceById(Id);
+            CreateCompetenceClass.IfActive = Comp.First().IfActive;
+            var Ind = _context.GetIndicatorByIdCompetence(Id);
+            CreateCompetenceClass.Indicators = new List<IndTest>();
+            foreach (var a in Ind.ToList())
+            {
+                CreateCompetenceClass.Indicators.Add(new IndTest { Title = a.Title, IfActive = a.IfActive });
+            }
+            if (DownloadFormats.Items[0].Selected)
+            {
+                string content = JsonConvert.SerializeObject(CreateCompetenceClass);
+                Response.Clear();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment;filename=" + Server.UrlPathEncode(CreateCompetenceClass.Title + '.' + DownloadFormats.SelectedValue));
+                Response.Charset = "";
+                Response.ContentType = "text/plain";
+                Response.Output.Write(content);
+            }
+            if (DownloadFormats.Items[1].Selected)
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(CreateCompetenceClass.GetType());
+
+                StringWriter textWriter = new StringWriter();
+                xmlSerializer.Serialize(textWriter, CreateCompetenceClass);
+                var content = textWriter.ToString();
+                Response.Clear();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment;filename=" + Server.UrlPathEncode(CreateCompetenceClass.Title + '.' + DownloadFormats.SelectedValue));
+                Response.Charset = "";
+                Response.ContentType = "text/plain";
+                Response.Output.Write(content);
+            }
+
+            Response.Flush();
+            Response.End();
+        }
+
+        protected void ImportCompetenceButton_Click(object sender, EventArgs e)
+        {
+            string PersonIdText = ListBoxPerson.SelectedValue;
+            int PersonId = Int32.Parse(PersonIdText);
+
+            string FileData = ImportFileText.Text;
+            CompTest results = new CompTest();
+            try
+            {
+                results = JsonConvert.DeserializeObject<CompTest>(FileData);
+            }
+            catch
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(CompTest));
+                StringReader rdr = new StringReader(FileData);
+                results = (CompTest)serializer.Deserialize(rdr);
+            }
+
+            if ((results.Title != "")
+                && (!_context.GetCompetenceByTitleByIdPerson(results.Title, PersonId).Any()))
+            {
+                //фиксируем текущие значения контрола и разрываем связь с источником данных
+                var _source = ListBoxCompetence.DataSourceID;
+
+                //инициируем хранимую процедуру создания элемента
+                _context.PostCompetence(results.Title, results.IfActive, PersonId);
+
+                //восстанавливаем связь контрола с источником данных          
+                ListBoxCompetence.DataSourceID = _source;
+                int _count = _context.GetCompetenceByIdPerson(PersonId).Count();
+
+                //передаем фокус на первый элемент списка если он существует
+                ListBoxCompetence.Focus();
+
+                var Comp = _context.GetCompetenceByTitleByIdPerson(results.Title, PersonId);
+                int _cId = Comp.First().Id;
+
+                foreach (IndTest a in results.Indicators)
+                {
+                    //фиксируем текущие значения контрола и разрываем связь с источником данных
+                    _source = ListBoxIndicator.DataSourceID;
+                    //инициируем хранимую процедуру создания элемента
+                    _context.PostIndicator(a.Title, a.IfActive, _cId);
+                    //восстанавливаем связь контрола с источником данных
+                    ListBoxIndicator.DataSourceID = _source;
+                    _count = _context.GetIndicatorByIdCompetence(_cId).Count();
+                    ListBoxIndicator.Focus();
+                }
+            }
+        }
+        #endregion
 
         #region методы контекста Индикатора    
         protected void ListBoxIndicator_SelectedIndexChanged(object sender, EventArgs e)
@@ -677,5 +773,16 @@ namespace HRCompetence
         }
         #endregion
 
+    }
+    public class CompTest
+    {
+        public string Title { get; set; }
+        public bool IfActive { get; set; }
+        public List<IndTest> Indicators { get; set; }
+    }
+    public class IndTest
+    {
+        public string Title { get; set; }
+        public bool IfActive { get; set; }
     }
 }

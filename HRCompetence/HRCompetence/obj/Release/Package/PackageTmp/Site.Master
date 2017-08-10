@@ -41,6 +41,7 @@
 
                 <%--Кастомные скрипты--%>
                 <asp:ScriptReference Path="~/Scripts/WebForms/Customs/ModalsHandler.js" />
+                <asp:ScriptReference Path="~/Scripts/WebForms/Customs/FormatController.js" />
 
             </Scripts>
         </asp:ScriptManager>
