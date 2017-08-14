@@ -3,6 +3,8 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <!-- ЗАГОЛОВОК -->
+    <br /> <br />
+    <!--
     <div class="row">
         <div class="col-md-1"><span class="icon-bar"></span></div>
         <div class="col-md-10">
@@ -16,6 +18,7 @@
         </div>
         <div class="col-md-1"><span class="icon-bar"></span></div>
     </div>
+    -->
 
 <!-- ИСТОЧНИКИ ДАННЫХ -->
 
@@ -248,12 +251,12 @@
                     </div><!-- конец контекста -->
 
     <!-- Competence -->
-                    <!-- Тело модального окна контекста поиска учетной записи сотрудника -->
+                    <!-- Тело модального окна контекста поиска компетенции -->
                     <div <%= CompetenceModalClass()%> id="FindCompetence" tabindex="-1" role="dialog" aria-labelledby="FindCompetenceHead">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center bg-info">
-                                    <asp:Button ID="ButtonFindCompetenceHeadClose" Style="border-width: 0px;" CssClass="close" runat="server" Text="&times;" OnClick="ButtonFindCompetenceHeadClose_Click" /> 
+                                    <asp:Button ID="ButtonFindCompetenceHeadClose" BorderStyle="None" CssClass="close" runat="server" Text="&times;" OnClick="ButtonFindCompetenceHeadClose_Click" /> 
                                     <h4 class="modal-title" id="FindCompetenceHead">Поиск компетенции</h4>
                                 </div>
                                 <div class="modal-body text-left">
@@ -271,7 +274,7 @@
                                                 </span>
                                             </div>
                                             <br />
-                                            <asp:ListBox ID="ListBoxFindCompetence" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" Rows="7" Height="200"></asp:ListBox>
+                                            <asp:ListBox ID="ListBoxFindCompetence" CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" Rows="7" Height="200px"></asp:ListBox>
                                         </div>
                                     <div class="col-md-1"><span class="icon-bar"></span></div>
                                     </div>
@@ -379,117 +382,71 @@
     <!-- Тело модального окна контекста импорта компетенции -->
                  <div class="modal fade" id="ImportCompetence" tabindex="-1" role="dialog" aria-labelledby="ImportCompetenceLabel">
                         <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center bg-info">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="ImportCompetenceLabel">Импортировать компетенцию</h4>
-                            </div>
-                            <div class="modal-body text-left">
-                                <blockquote class="primary">
-                                    <p>Загрузите файл компетенции:</p>
-                                </blockquote>                
-                                <div class="row">
-                                <div class="col-md-1"><span class="icon-bar"></span></div>
-                                    <div class="col-md-10">
-                                            <input type="file" onchange='readText(this)' />
-                                            <h3>Contents of the Text file:</h3>
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-info">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="ImportCompetenceLabel">Импортировать компетенцию</h4>
+                                </div>
+                                <div class="modal-body text-left">
+                                    <blockquote class="primary">
+                                        <p>Загрузите файл компетенции:</p>
+                                    </blockquote>                
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                              <span class="icon-bar"/>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <label class="btn btn-default btn-file" >
+                                                Выберите файл <input type="file" onchange='readText(this)' style="display: none;">
+                                            </label>
+                                            <h3>Содержание компетенции:</h3>
                                             <pre id="ViewText"></pre>
                                             <asp:TextBox ID="ImportFileText" runat="server" style="display:none;"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span class="icon-bar"/>
+                                        </div>
                                     </div>
-                                <div class="col-md-1"><span class="icon-bar"></span></div>
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                                    <asp:Button ID="ImportCompetenceButton" CssClass="btn btn-primary" runat="server" Text="Добавить" OnClick="ImportCompetenceButton_Click" />
                                 </div>
+                                    </div>
                             </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                            <asp:Button ID="ImportCompetenceButton" CssClass="btn btn-primary" runat="server" Text="Добавить" OnClick="ImportCompetenceButton_Click" />
-                            </div>
-                        </div>
                         </div>
                  </div>
             
     <!-- Тело модального окна контекста экспорта компетенции -->
                  <div class="modal fade" id="ExportCompetence" tabindex="-1" role="dialog" aria-labelledby="ExportCompetence">
-                        <div class="modal-dialog" role="document">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header text-center bg-info">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="ExportCompetenceLabel">Экспортировать компетенцию</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="ExportCompetenceLabel">Экспортировать компетенцию</h4>
                             </div>
                             <div class="modal-body text-left">
                                 <blockquote class="primary">
                                     <p>Выберите формат данных для загрузки:</p>
                                 </blockquote>                
                                 <div class="row">
-                                <div class="col-md-1"><span class="icon-bar"></span></div>
-                                 <asp:CheckBoxList ID="DownloadFormats" runat="server">
-                                      <asp:ListItem Text="JSON" Value="json"></asp:ListItem>
-                                      <asp:ListItem Text="XML" Value="xml"></asp:ListItem>
-                                 </asp:CheckBoxList>    
-                                <div class="col-md-1"><span class="icon-bar"></span></div>
+                                    <div class="col-md-1"><span class="icon-bar"></span></div>
+                                    <asp:RadioButtonList ID="DownloadFormat" runat="server"> 
+                                              <asp:ListItem Text="JSON" Value="json"></asp:ListItem>
+                                              <asp:ListItem Text="XML" Value="xml"></asp:ListItem>
+                                    </asp:RadioButtonList> 
+                                    <div class="col-md-1">
+                                        <span class="icon-bar"/>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                            <asp:Button ID="DownloadButton" CssClass="btn btn-primary" runat="server" Text="Cкачать" OnClick="DownloadButton_Click" />
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                                <asp:Button ID="DownloadButton" CssClass="btn btn-primary" runat="server" Text="Cкачать" OnClick="DownloadButton_Click" data-toggle="modal" data-target="#ExportCompetence" />
                             </div>
                         </div>
- </div>
+                    </div>
                  </div>
-    <script type="text/javascript">
-        function readText(filePath) {
-            var reader = new FileReader();
-            var output = ""; //placeholder for text output
-            if (filePath.files && filePath.files[0]) {
-                reader.onload = function (e) {
-                    output = e.target.result;
-                    displayContents(output);
-                };//end onload()
-                reader.readAsText(filePath.files[0]);
-            }//end if html5 filelist support
-            else if (ActiveXObject && filePath) { //fallback to IE 6-8 support via ActiveX
-                reader = new ActiveXObject("Scripting.FileSystemObject");
-                var file = reader.OpenTextFile(filePath, 1); //ActiveX File Object
-                output = file.ReadAll(); //text contents of file
-                file.Close(); //close file "input stream"
-                displayContents(output);
-            }
-        }
-        function isJson(json) {
-            try {
-                JSON.parse(json);
-                return true;
-            }
-            catch (e) { return false; }
-        }
-
-        function isXML(xml) {
-            try {
-                $.parseXML(xml); //is valid XML
-                return true;
-            }
-            catch (err) {
-                // was not XML
-                return false;
-            }
-        }
-
-        function displayContents(txt) {
-            if (isJson(txt)) {
-                var jsonPretty = JSON.stringify(JSON.parse(txt), null, 4);
-                $('#ViewText').text(jsonPretty);
-                document.getElementById('<%=ImportFileText.ClientID %>').value = txt;
-    }
-    else if (isXML(txt)) {
-        $('#ViewText').text(txt);
-        document.getElementById('<%=ImportFileText.ClientID %>').value = txt;
-    }
-    else {
-        $('#ViewText').text(jsonPretty);
-        document.getElementById('<%=ImportFileText.ClientID %>').value = "NOT JSON NOT XML";
-    }
-}
-    </script>
-
     <!-- Comment-->
                     <!-- Тело модального окна контекста добавления комментария -->
                     <div class="modal fade" id="CreateComment" tabindex="-1" role="dialog" aria-labelledby="CreateCommentLabel">
@@ -743,8 +700,7 @@
                                                     <li><a data-toggle="modal" data-target="#UpdateCompetence">Изменить</a></li>
                                                     <li><a data-toggle="modal" data-target="#DeleteCompetence">Удалить</a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a data-toggle="modal" data-target="#FindCompetence">Найти</a></li>
-                                                    <li role="separator" class="divider"></li>
+                                                    <li><asp:Button ID="LinkButtonFindCompetence" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Найти" OnClick="LinkButtonFindCompetence_Click" /></li><li role="separator" class="divider"></li>
                                                     <li><a data-toggle="modal" data-target="#ImportCompetence">Загрузить из файла</a></li>
                                                     <li><a data-toggle="modal" data-target="#ExportCompetence">Выгрузить в файл</a></li>
                                                 </ul>

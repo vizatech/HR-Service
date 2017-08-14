@@ -301,13 +301,13 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button ImportCompetenceButton;
         
         /// <summary>
-        /// DownloadFormats элемент управления.
+        /// DownloadFormat элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList DownloadFormats;
+        protected global::System.Web.UI.WebControls.RadioButtonList DownloadFormat;
         
         /// <summary>
         /// DownloadButton элемент управления.
@@ -479,6 +479,15 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button AccordionCompetence;
+        
+        /// <summary>
+        /// LinkButtonFindCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonFindCompetence;
         
         /// <summary>
         /// ListBoxCompetence элемент управления.

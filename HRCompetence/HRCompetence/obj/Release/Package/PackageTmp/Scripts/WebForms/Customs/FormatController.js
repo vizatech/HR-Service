@@ -16,6 +16,24 @@
         displayContents(output);
     }
 }
+
+function displayContents(txt) {
+    if (isJson(txt)) {
+
+        $('#MainContent_ImportFileText').attr('value', txt);
+        var jsonPretty = JSON.stringify(JSON.parse(txt), null, 4);
+        $('#ViewText').text(jsonPretty);
+    }
+    else if (isXML(txt)) {
+
+        $('#MainContent_ImportFileText').attr('value', txt);
+        $('#ViewText').text(txt);
+    }
+    else {
+        $('#MainContent_ImportFileText').attr('value', "NOT JSON NOT XML");
+        $('#ViewText').text("NOT JSON NOT XML");
+    }
+}
 function isJson(json) {
     try {
         JSON.parse(json);
@@ -32,21 +50,5 @@ function isXML(xml) {
     catch (err) {
         // was not XML
         return false;
-    }
-}
-
-function displayContents(txt) {
-    if (isJson(txt)) {
-        var jsonPretty = JSON.stringify(JSON.parse(txt), null, 4);
-        $('#ViewText').text(jsonPretty);
-        document.getElementById('<%=ImportFileText.ClientID %>').value = txt;
-    }
-    else if (isXML(txt)) {
-        $('#ViewText').text(txt);
-        document.getElementById('<%=ImportFileText.ClientID %>').value = txt;
-    }
-    else {
-        $('#ViewText').text(jsonPretty);
-        document.getElementById('<%=ImportFileText.ClientID %>').value = "NOT JSON NOT XML";
     }
 }

@@ -473,45 +473,49 @@ namespace HRCompetence
 
         protected void DownloadButton_Click(object sender, EventArgs e)
         {
-            int Id = Convert.ToInt32(ListBoxCompetence.SelectedValue);
-            var Comp = _context.GetCompetenceById(Id);
-            CompTest CreateCompetenceClass = new CompTest();
-            CreateCompetenceClass.Title = Comp.First().Title;
-            Comp = _context.GetCompetenceById(Id);
-            CreateCompetenceClass.IfActive = Comp.First().IfActive;
-            var Ind = _context.GetIndicatorByIdCompetence(Id);
-            CreateCompetenceClass.Indicators = new List<IndTest>();
-            foreach (var a in Ind.ToList())
+            if (int.TryParse(ListBoxCompetence.SelectedValue, out int _id)
+                && int.TryParse(ListBoxPerson.SelectedValue, out int _idp))
             {
-                CreateCompetenceClass.Indicators.Add(new IndTest { Title = a.Title, IfActive = a.IfActive });
-            }
-            if (DownloadFormats.Items[0].Selected)
-            {
-                string content = JsonConvert.SerializeObject(CreateCompetenceClass);
-                Response.Clear();
-                Response.Buffer = true;
-                Response.AddHeader("content-disposition", "attachment;filename=" + Server.UrlPathEncode(CreateCompetenceClass.Title + '.' + DownloadFormats.SelectedValue));
-                Response.Charset = "";
-                Response.ContentType = "text/plain";
-                Response.Output.Write(content);
-            }
-            if (DownloadFormats.Items[1].Selected)
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(CreateCompetenceClass.GetType());
+                int Id = Convert.ToInt32(ListBoxCompetence.SelectedValue);
+                var Comp = _context.GetCompetenceById(Id);
+                CompetenceFile CreateCompetenceClass = new CompetenceFile();
+                CreateCompetenceClass.Title = Comp.First().Title;
+                Comp = _context.GetCompetenceById(Id);
+                CreateCompetenceClass.IfActive = Comp.First().IfActive;
+                var Ind = _context.GetIndicatorByIdCompetence(Id);
+                CreateCompetenceClass.Indicators = new List<IndicatorFile>();
+                foreach (var a in Ind.ToList())
+                {
+                    CreateCompetenceClass.Indicators.Add(new IndicatorFile { Title = a.Title, IfActive = a.IfActive });
+                }
+                if (DownloadFormat.Items[0].Selected)
+                {
+                    string content = JsonConvert.SerializeObject(CreateCompetenceClass);
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.AddHeader("content-disposition", "attachment;filename=" + Server.UrlPathEncode(CreateCompetenceClass.Title + '.' + DownloadFormat.SelectedValue));
+                    Response.Charset = "";
+                    Response.ContentType = "text/plain";
+                    Response.Output.Write(content);
+                }
+                else if (DownloadFormat.Items[1].Selected)
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(CreateCompetenceClass.GetType());
 
-                StringWriter textWriter = new StringWriter();
-                xmlSerializer.Serialize(textWriter, CreateCompetenceClass);
-                var content = textWriter.ToString();
-                Response.Clear();
-                Response.Buffer = true;
-                Response.AddHeader("content-disposition", "attachment;filename=" + Server.UrlPathEncode(CreateCompetenceClass.Title + '.' + DownloadFormats.SelectedValue));
-                Response.Charset = "";
-                Response.ContentType = "text/plain";
-                Response.Output.Write(content);
-            }
+                    StringWriter textWriter = new StringWriter();
+                    xmlSerializer.Serialize(textWriter, CreateCompetenceClass);
+                    var content = textWriter.ToString();
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.AddHeader("content-disposition", "attachment;filename=" + Server.UrlPathEncode(CreateCompetenceClass.Title + '.' + DownloadFormat.SelectedValue));
+                    Response.Charset = "";
+                    Response.ContentType = "text/plain";
+                    Response.Output.Write(content);
+                }
 
-            Response.Flush();
-            Response.End();
+                Response.Flush();
+                Response.End();
+            }
         }
 
         protected void ImportCompetenceButton_Click(object sender, EventArgs e)
@@ -520,16 +524,16 @@ namespace HRCompetence
             int PersonId = Int32.Parse(PersonIdText);
 
             string FileData = ImportFileText.Text;
-            CompTest results = new CompTest();
+            CompetenceFile results = new CompetenceFile();
             try
             {
-                results = JsonConvert.DeserializeObject<CompTest>(FileData);
+                results = JsonConvert.DeserializeObject<CompetenceFile>(FileData);
             }
             catch
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(CompTest));
+                XmlSerializer serializer = new XmlSerializer(typeof(CompetenceFile));
                 StringReader rdr = new StringReader(FileData);
-                results = (CompTest)serializer.Deserialize(rdr);
+                results = (CompetenceFile)serializer.Deserialize(rdr);
             }
 
             if ((results.Title != "")
@@ -551,7 +555,7 @@ namespace HRCompetence
                 var Comp = _context.GetCompetenceByTitleByIdPerson(results.Title, PersonId);
                 int _cId = Comp.First().Id;
 
-                foreach (IndTest a in results.Indicators)
+                foreach (IndicatorFile a in results.Indicators)
                 {
                     //фиксируем текущие значения контрола и разрываем связь с источником данных
                     _source = ListBoxIndicator.DataSourceID;
@@ -774,13 +778,13 @@ namespace HRCompetence
         #endregion
 
     }
-    public class CompTest
+    public class CompetenceFile
     {
         public string Title { get; set; }
         public bool IfActive { get; set; }
-        public List<IndTest> Indicators { get; set; }
+        public List<IndicatorFile> Indicators { get; set; }
     }
-    public class IndTest
+    public class IndicatorFile
     {
         public string Title { get; set; }
         public bool IfActive { get; set; }
