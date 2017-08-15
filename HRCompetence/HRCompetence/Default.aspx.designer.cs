@@ -337,13 +337,13 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button ButtonCreateComment;
         
         /// <summary>
-        /// TextBoxUpdateCommentNew элемент управления.
+        /// TextBoxUpdateComment элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxUpdateCommentNew;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxUpdateComment;
         
         /// <summary>
         /// ButtonUpdateCommentNew элемент управления.
@@ -445,6 +445,33 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Panel PanelDataRead;
         
         /// <summary>
+        /// LinkButtonCreatePerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonCreatePerson;
+        
+        /// <summary>
+        /// LinkButtonUpdatePerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonUpdatePerson;
+        
+        /// <summary>
+        /// LinkButtonDeletePerson элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonDeletePerson;
+        
+        /// <summary>
         /// LinkButtonFindPerson элемент управления.
         /// </summary>
         /// <remarks>
@@ -481,6 +508,33 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button AccordionCompetence;
         
         /// <summary>
+        /// LinkButtonCreateCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonCreateCompetence;
+        
+        /// <summary>
+        /// LinkButtonUpdateCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonUpdateCompetence;
+        
+        /// <summary>
+        /// LinkButtonDeleteCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonDeleteCompetence;
+        
+        /// <summary>
         /// LinkButtonFindCompetence элемент управления.
         /// </summary>
         /// <remarks>
@@ -488,6 +542,24 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button LinkButtonFindCompetence;
+        
+        /// <summary>
+        /// LinkButtonImportCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonImportCompetence;
+        
+        /// <summary>
+        /// LinkButtonExportCompetence элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonExportCompetence;
         
         /// <summary>
         /// ListBoxCompetence элемент управления.
@@ -517,6 +589,33 @@ namespace HRCompetence {
         protected global::System.Web.UI.WebControls.Button AccordionComment;
         
         /// <summary>
+        /// LinkButtonCreateComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonCreateComment;
+        
+        /// <summary>
+        /// LinkButtonUpdateComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonUpdateComment;
+        
+        /// <summary>
+        /// LinkButtonDeleteComment элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonDeleteComment;
+        
+        /// <summary>
         /// ListBoxComment элемент управления.
         /// </summary>
         /// <remarks>
@@ -533,6 +632,33 @@ namespace HRCompetence {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelComment;
+        
+        /// <summary>
+        /// LinkButtonCreateIndicator элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonCreateIndicator;
+        
+        /// <summary>
+        /// LinkButtonUpdateIndicator элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonUpdateIndicator;
+        
+        /// <summary>
+        /// LinkButtonDeleteIndicator элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LinkButtonDeleteIndicator;
         
         /// <summary>
         /// ListBoxIndicator элемент управления.

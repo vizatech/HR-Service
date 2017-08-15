@@ -4,21 +4,6 @@
 
 <!-- ЗАГОЛОВОК -->
     <br /> <br />
-    <!--
-    <div class="row">
-        <div class="col-md-1"><span class="icon-bar"></span></div>
-        <div class="col-md-10">
-            <div class="jumbotron well">
-                <h2 id="GeneralHead">Модуль анализа компетенций</h2>
-                <blockquote class="primary">
-                    <p class="lead">Приложение написано в архитектуре <mark>ASP.NET Web Forms / Entity Data Model</mark></p>
-                </blockquote>                
-                <p><a href="https://github.com/vizatech/HR-Service" class="btn btn-primary btn-lg">Перейти на Git-Hub &raquo;</a></p>
-            </div>
-        </div>
-        <div class="col-md-1"><span class="icon-bar"></span></div>
-    </div>
-    -->
 
 <!-- ИСТОЧНИКИ ДАННЫХ -->
 
@@ -179,7 +164,7 @@
                                         <span class="input-group-addon">
                                         <asp:CheckBox ID="CheckBoxCreatePerson" runat="server" ToolTip="Отметьте галочкой включена или нет эта учетная запись" Checked="True" />  
                                         </span>
-                                        <asp:TextBox ID="TextBoxCreatePerson" placeholder="Фамилия Имя ..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите имя и фамилию сотрудника">Имя и фамилия</asp:TextBox>
+                                        <asp:TextBox ID="TextBoxCreatePerson" placeholder="Фамилия Имя ..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите имя и фамилию сотрудника"></asp:TextBox>
                                     </div>
                                     </div>
                                 <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -496,7 +481,7 @@
                                         <div class="col-md-1"><span class="icon-bar"></span></div>
                                         <div class="col-md-10">
                                             <div class="input-form">
-                                                <asp:TextBox ID="TextBoxUpdateCommentNew"  placeholder="Комментарий..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовый комментарий"></asp:TextBox>
+                                                <asp:TextBox ID="TextBoxUpdateComment"  placeholder="Комментарий..." CssClass="form-control" width="100%" Style="max-width: 500px;" runat="server" ToolTip="Введите текстовый комментарий"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="col-md-1"><span class="icon-bar"></span></div>
@@ -649,10 +634,14 @@
                                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                             </div>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuPerson">
-                                                <li><a data-toggle="modal" data-target="#CreatePerson">Добавить</a></li>
-                                                <li><a data-toggle="modal" data-target="#UpdatePerson">Изменить</a></li>
-                                                <li><a data-toggle="modal" data-target="#DeletePerson">Удалить</a></li>
-                                                <li role="separator" class="divider"></li>
+                                                <asp:UpdatePanel runat="server"> 
+                                                    <ContentTemplate>
+                                                        <li><asp:Button ID="LinkButtonCreatePerson" runat="server" data-toggle="modal" data-target="#CreatePerson" OnClientClick="return false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" Text="Добавить" /></li>
+                                                        <li><asp:Button Enabled="false" ID="LinkButtonUpdatePerson" runat="server" data-toggle="modal" data-target="#UpdatePerson" OnClientClick="return false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" Text="Изменить"></asp:Button></li>
+                                                        <li><asp:Button Enabled="false" ID="LinkButtonDeletePerson" runat="server" data-toggle="modal" data-target="#DeletePerson" OnClientClick="return false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" Text="Удалить"></asp:Button></li>
+                                                        <li role="separator" class="divider"></li>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                                 <li><asp:Button ID="LinkButtonFindPerson" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" OnClick="LinkButtonFindPerson_Click" Text="Найти" /></li>
                                             </ul>
                                         </div>
@@ -696,13 +685,26 @@
                                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                                 </div>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuCompetence">
-                                                    <li><a data-toggle="modal" data-target="#CreateCompetence">Добавить</a></li>
-                                                    <li><a data-toggle="modal" data-target="#UpdateCompetence">Изменить</a></li>
-                                                    <li><a data-toggle="modal" data-target="#DeleteCompetence">Удалить</a></li>
+                                                  <asp:UpdatePanel runat="server"> 
+                                                    <ContentTemplate> 
+                                                    <li><asp:Button Enabled="false" ID="LinkButtonCreateCompetence" data-toggle="modal" data-target="#CreateCompetence" OnClientClick="return:false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Добавить" ></asp:Button></li>
+                                                    
+                                                    <li><asp:Button ID="LinkButtonUpdateCompetence" Enabled="false"  OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Изменить" data-toggle="modal" data-target="#UpdateCompetence"></asp:Button></li>
+                                                    <li><asp:Button ID="LinkButtonDeleteCompetence" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Удалить" data-toggle="modal" data-target="#DeleteCompetence"></asp:Button></li>
                                                     <li role="separator" class="divider"></li>
+                                                    
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                                    
                                                     <li><asp:Button ID="LinkButtonFindCompetence" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Найти" OnClick="LinkButtonFindCompetence_Click" /></li><li role="separator" class="divider"></li>
-                                                    <li><a data-toggle="modal" data-target="#ImportCompetence">Загрузить из файла</a></li>
-                                                    <li><a data-toggle="modal" data-target="#ExportCompetence">Выгрузить в файл</a></li>
+                                                    
+                                                    <asp:UpdatePanel runat="server"> 
+                                                    <ContentTemplate>
+                                                    <li><asp:Button ID="LinkButtonImportCompetence" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Импортировать" data-toggle="modal" data-target="#ImportCompetence"></asp:Button></li>
+                                                    <li><asp:Button ID="LinkButtonExportCompetence" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Экспортировать" data-toggle="modal" data-target="#ExportCompetence"></asp:Button></li
+                                                    
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                                 </ul>
                                             </div>
                                         </div>
@@ -744,9 +746,14 @@
                                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                                 </div>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuComment">
-                                                    <li><a data-toggle="modal" data-target="#CreateComment">Добавить</a></li>
-                                                    <li><a data-toggle="modal" data-target="#UpdateComment">Изменить</a></li>
-                                                    <li><a data-toggle="modal" data-target="#DeleteComment">Удалить</a></li>
+                                                     <asp:UpdatePanel runat="server"> 
+                                                    <ContentTemplate> 
+                                                    <li><asp:Button ID="LinkButtonCreateComment" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Добавить" data-toggle="modal" data-target="#CreateComment"></asp:Button></li>
+                                                    <li><asp:Button ID="LinkButtonUpdateComment" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Изменить" data-toggle="modal" data-target="#UpdateComment"></asp:Button></li>
+                                                    <li><asp:Button ID="LinkButtonDeleteComment" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Удалить" data-toggle="modal" data-target="#DeleteComment"></asp:Button></li>
+                                                    
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                                 </ul>
                                             </div>
                                         </div>
@@ -788,9 +795,14 @@
                                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                             </div>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuIndicators">
-                                                <li><a data-toggle="modal" data-target="#CreateIndicator">Добавить</a></li>
-                                                <li><a data-toggle="modal" data-target="#UpdateIndicator">Изменить</a></li>
-                                                <li><a data-toggle="modal" data-target="#DeleteIndicator">Удалить</a></li>
+                                                 <asp:UpdatePanel runat="server"> 
+                                                    <ContentTemplate>
+                                                <li><asp:Button ID="LinkButtonCreateIndicator" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Добавить" data-toggle="modal" data-target="#CreateIndicator"></asp:Button></li>
+                                                <li><asp:Button ID="LinkButtonUpdateIndicator" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Изменить" data-toggle="modal" data-target="#UpdateIndicator"></asp:Button></li>
+                                                <li><asp:Button ID="LinkButtonDeleteIndicator" Enabled="false" OnClientClick="return: false;" CssClass="btn btn-default" Style="border-width: 0px; text-align:left; padding: 3px 20px;" width="100%" runat="server" Text="Удалить" data-toggle="modal" data-target="#DeleteIndicator"></asp:Button></li>
+                                          
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                             </ul>
                                         </div>
                                     </div>
