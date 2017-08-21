@@ -208,7 +208,7 @@ namespace HRCompetence
                     ListBoxIndicator.DataSourceID = _source;
                     _count = _context.GetIndicatorByIdCompetence(_cId).Count();
                     ListBoxIndicator.Focus();
-                }
+                }                                            
             }
         }
         #endregion
@@ -260,28 +260,30 @@ namespace HRCompetence
 
         protected void ButtonFindPerson_Click(object sender, EventArgs e)
         {
-            HttpCookie httpCookie = Request.Cookies["UsersState"];
+            if (ListBoxFindPerson.SelectedIndex >= 0) {
+                HttpCookie httpCookie = Request.Cookies["UsersState"];
 
-            _collection.FindPersonModal = "Class='modal fade' Style='display:none' ";
-            httpCookie["FindPersonModal"] = "Class='modal fade' Style='display:none' ";
-            _collection.TopBodyModal = "";
-            httpCookie["TopBodyModal"] = "";
-            _collection.BottomBodyModal = "";
-            httpCookie["BottomBodyModal"] = "";
+                _collection.FindPersonModal = "Class='modal fade' Style='display:none' ";
+                httpCookie["FindPersonModal"] = "Class='modal fade' Style='display:none' ";
+                _collection.TopBodyModal = "";
+                httpCookie["TopBodyModal"] = "";
+                _collection.BottomBodyModal = "";
+                httpCookie["BottomBodyModal"] = "";
 
-            httpCookie.Expires = DateTime.Now.AddHours(72);
+                httpCookie.Expires = DateTime.Now.AddHours(72);
 
-            Response.Cookies.Add(httpCookie);
+                Response.Cookies.Add(httpCookie);
 
-            ListBoxPerson.ClearSelection();
-            try { ListBoxPerson.Items.FindByValue(ListBoxFindPerson.SelectedItem.Value).Selected = true; } catch { };
+                ListBoxPerson.ClearSelection();
+                try { ListBoxPerson.Items.FindByValue(ListBoxFindPerson.SelectedItem.Value).Selected = true; } catch { };
 
-            // очищаем состояния связанных окон
-            ListBoxCompetence.ClearSelection();
-            LabelCompetence.Visible = false;
-            ListBoxIndicator.ClearSelection();
-            LabelIndicator.Visible = false;
-            ListBoxComment.ClearSelection();
+                // очищаем состояния связанных окон
+                ListBoxCompetence.ClearSelection();
+                LabelCompetence.Visible = false;
+                ListBoxIndicator.ClearSelection();
+                LabelIndicator.Visible = false;
+                ListBoxComment.ClearSelection();
+            }
         }
 
         protected void PersonHeadButtonClose_Click(object sender, EventArgs e)
@@ -333,38 +335,41 @@ namespace HRCompetence
 
         protected void ButtonFindCompetence_Click(object sender, EventArgs e)
         {
-            HttpCookie httpCookie = Request.Cookies["UsersState"];
-
-            _collection.FindCompetenceModal = "Class='modal fade' Style='display:none' ";
-            httpCookie["FindCompetenceModal"] = "Class='modal fade' Style='display:none' ";
-            _collection.TopBodyModal = "";
-            httpCookie["TopBodyModal"] = "";
-            _collection.BottomBodyModal = "";
-            httpCookie["BottomBodyModal"] = "";
-
-            httpCookie.Expires = DateTime.Now.AddHours(72);
-
-            Response.Cookies.Add(httpCookie);
-
-            int.TryParse(ListBoxFindCompetence.SelectedItem.Value, out int _idc);
-            if (_idc > 0)
+            if (ListBoxFindCompetence.SelectedIndex >= 0)
             {
-                var _competence = _context.GetCompetenceById(_idc).ToList();
+                HttpCookie httpCookie = Request.Cookies["UsersState"];
 
-                if (_competence.Any())
+                _collection.FindCompetenceModal = "Class='modal fade' Style='display:none' ";
+                httpCookie["FindCompetenceModal"] = "Class='modal fade' Style='display:none' ";
+                _collection.TopBodyModal = "";
+                httpCookie["TopBodyModal"] = "";
+                _collection.BottomBodyModal = "";
+                httpCookie["BottomBodyModal"] = "";
+
+                httpCookie.Expires = DateTime.Now.AddHours(72);
+
+                Response.Cookies.Add(httpCookie);
+
+                int.TryParse(ListBoxFindCompetence.SelectedItem.Value, out int _idc);
+                if (_idc > 0)
                 {
-                    int _idp = _competence.First().PersonId.Value;
+                    var _competence = _context.GetCompetenceById(_idc).ToList();
 
-                    ListBoxPerson.ClearSelection();
-                    try { ListBoxPerson.Items.FindByValue(_idp.ToString()).Selected = true; } catch { };
+                    if (_competence.Any())
+                    {
+                        int _idp = _competence.First().PersonId.Value;
 
-                    ListBoxCompetence.DataBind();
-                    ListBoxCompetence.ClearSelection();
-                    try { ListBoxCompetence.Items.FindByValue(_idc.ToString()).Selected = true; } catch { };
+                        ListBoxPerson.ClearSelection();
+                        try { ListBoxPerson.Items.FindByValue(_idp.ToString()).Selected = true; } catch { };
 
-                    // очищаем состояния связанных окон
-                    ListBoxIndicator.ClearSelection();
-                    LabelIndicator.Visible = false;
+                        ListBoxCompetence.DataBind();
+                        ListBoxCompetence.ClearSelection();
+                        try { ListBoxCompetence.Items.FindByValue(_idc.ToString()).Selected = true; } catch { };
+
+                        // очищаем состояния связанных окон
+                        ListBoxIndicator.ClearSelection();
+                        LabelIndicator.Visible = false;
+                    }
                 }
             }
         }
@@ -480,6 +485,22 @@ namespace HRCompetence
                 // Передаем указатель на созданное поле
                 ListBoxPerson.ClearSelection();
                 try { ListBoxPerson.Items.FindByValue(_id).Selected = true; } catch { };
+
+                LinkButtonUpdatePerson.Enabled = true;
+                LinkButtonDeletePerson.Enabled = true;
+                LinkButtonCreateCompetence.Enabled = true;
+                LinkButtonImportCompetence.Enabled = true;
+                LinkButtonCreateComment.Enabled = true;
+
+                LinkButtonUpdateCompetence.Enabled = false;
+                LinkButtonDeleteCompetence.Enabled = false;
+                LinkButtonExportCompetence.Enabled = false;
+                LinkButtonUpdateComment.Enabled = false;
+                LinkButtonDeleteComment.Enabled = false;
+
+                LinkButtonCreateIndicator.Enabled = false;
+                LinkButtonUpdateIndicator.Enabled = false;
+                LinkButtonDeleteIndicator.Enabled = false;
 
                 // очищаем состояния связанных окон
                 ListBoxCompetence.ClearSelection();
@@ -644,6 +665,17 @@ namespace HRCompetence
                 // Передаем указатель на созданное поле
                 ListBoxCompetence.ClearSelection();
                 try { ListBoxCompetence.Items.FindByValue(_id).Selected = true; } catch { };
+                
+                
+                LinkButtonUpdateCompetence.Enabled = true;
+                LinkButtonUpdateCompetence.Enabled = true;
+                LinkButtonExportCompetence.Enabled = true;
+                LinkButtonDeleteCompetence.Enabled = true;
+                LinkButtonCreateIndicator.Enabled = true;
+
+
+                LinkButtonUpdateIndicator.Enabled = false;
+                LinkButtonDeleteIndicator.Enabled = false;
 
                 // очищаем состояния связанных окон
                 ListBoxIndicator.ClearSelection();
@@ -783,6 +815,9 @@ namespace HRCompetence
                 TextBoxCreateIndicator.Text = "";
                 CheckBoxCreateIndicator.Checked = true;
 
+                LinkButtonUpdateIndicator.Enabled = true;
+                LinkButtonDeleteIndicator.Enabled = true;
+
                 // Передаем указатель на созданное поле
                 ListBoxIndicator.ClearSelection();
                 try { ListBoxIndicator.Items.FindByValue(_id).Selected = true; } catch { };
@@ -898,6 +933,9 @@ namespace HRCompetence
                 //обнуляем значения контролов Создания значений полей
                 TextBoxCreateComment.Text = "";
 
+                LinkButtonUpdateComment.Enabled = true;
+                LinkButtonDeleteComment.Enabled = true;
+                
                 // Передаем указатель на созданное поле
                 ListBoxComment.ClearSelection();
                 try { ListBoxComment.Items.FindByValue(_id).Selected = true; } catch { };

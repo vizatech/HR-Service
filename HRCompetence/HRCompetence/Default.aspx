@@ -365,7 +365,7 @@
                     </div><!-- конец контекста -->
 
     <!-- Тело модального окна контекста импорта компетенции -->
-                 <div class="modal fade" id="ImportCompetence" tabindex="-1" role="dialog" aria-labelledby="ImportCompetenceLabel">
+                    <div class="modal fade" id="ImportCompetence" tabindex="-1" role="dialog" aria-labelledby="ImportCompetenceLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center bg-info">
@@ -381,57 +381,61 @@
                                               <span class="icon-bar"/>
                                         </div>
                                         <div class="col-md-10">
-                                            <label class="btn btn-default btn-file" >
-                                                Выберите файл <input type="file" onchange='readText(this)' style="display: none;">
-                                            </label>
-                                            <h3>Содержание компетенции:</h3>
-                                            <pre id="ViewText"></pre>
+                                            <h3>Содержание файла компетенции:</h3>
+                                            
+                                            <pre id="ViewText" style="min-height:200px;"></pre>
                                             <asp:TextBox ID="ImportFileText" runat="server" style="display:none;"/>
                                         </div>
                                         <div class="col-md-1">
                                             <span class="icon-bar"/>
                                         </div>
                                     </div>
+                                    </div>
                                 
                                 <div class="modal-footer">
+                                    <div class="col-md-6" style="text-align:left; padding-left:0;">
+                                        <label class="btn btn-default btn-file">
+                                            Выберите файл <input type="file" onchange='readText(this)' style="display: none;">
+                                        </label>
+                                    </div>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                                    <asp:Button ID="ImportCompetenceButton" CssClass="btn btn-primary" runat="server" Text="Добавить" OnClick="ImportCompetenceButton_Click" />
-                                </div>
-                                    </div>
-                            </div>
-                        </div>
-                 </div>
-            
-    <!-- Тело модального окна контекста экспорта компетенции -->
-                 <div class="modal fade" id="ExportCompetence" tabindex="-1" role="dialog" aria-labelledby="ExportCompetence">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center bg-info">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="ExportCompetenceLabel">Экспортировать компетенцию</h4>
-                            </div>
-                            <div class="modal-body text-left">
-                                <blockquote class="primary">
-                                    <p>Выберите формат данных для загрузки:</p>
-                                </blockquote>                
-                                <div class="row">
-                                    <div class="col-md-1"><span class="icon-bar"></span></div>
-                                    <asp:RadioButtonList ID="DownloadFormat" runat="server"> 
-                                              <asp:ListItem Text="JSON" Value="json"></asp:ListItem>
-                                              <asp:ListItem Text="XML" Value="xml"></asp:ListItem>
-                                    </asp:RadioButtonList> 
-                                    <div class="col-md-1">
-                                        <span class="icon-bar"/>
-                                    </div>
+                                    <asp:Button ID="ImportCompetenceButton" CssClass="btn btn-primary" runat="server" Text="Импорт" OnClick="ImportCompetenceButton_Click" />
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                                <asp:Button ID="DownloadButton" CssClass="btn btn-primary" runat="server" Text="Cкачать" OnClick="DownloadButton_Click" data-toggle="modal" data-target="#ExportCompetence" />
+                        </div>
+                    </div><!-- конец контекста -->    
+    
+                    <!-- Тело модального окна контекста экспорта компетенции -->
+                    <div class="modal fade" id="ExportCompetence" tabindex="-1" role="dialog" aria-labelledby="ExportCompetence">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-info">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="ExportCompetenceLabel">Экспортировать компетенцию</h4>
+                                </div>
+                                <div class="modal-body text-left">
+                                    <blockquote class="primary">
+                                        <p>Выберите формат данных:</p>
+                                    </blockquote>                
+                                    <div class="row">
+                                        <div class="col-md-1"><span class="icon-bar"></span></div>
+                                        <asp:RadioButtonList ID="DownloadFormat" runat="server"> 
+                                                  <asp:ListItem Value="json">JSON</asp:ListItem>
+                                                  <asp:ListItem Value="xml">XML</asp:ListItem>
+                                        </asp:RadioButtonList> 
+                                        <div class="col-md-1">
+                                            <span class="icon-bar"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                                    <asp:Button ID="DownloadButton" CssClass="btn btn-primary" runat="server" Text="Экспортировать" OnClick="DownloadButton_Click" data-toggle="modal" data-target="#ExportCompetence" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                 </div>
+                    </div><!-- конец контекста --> 
+
     <!-- Comment-->
                     <!-- Тело модального окна контекста добавления комментария -->
                     <div class="modal fade" id="CreateComment" tabindex="-1" role="dialog" aria-labelledby="CreateCommentLabel">
